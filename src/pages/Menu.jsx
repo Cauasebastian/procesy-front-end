@@ -1,10 +1,12 @@
 import React from 'react';
 import {
-  Box,
+  AppBar,
+  Toolbar,
+  Avatar,
   Typography,
-  Button,
   Container,
-  Grid,
+  Box,
+  Button,
   Card,
   CardContent,
 } from '@mui/material';
@@ -12,103 +14,143 @@ import { PieChart } from '@mui/x-charts/PieChart';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
-function Menu() {
+const Menu = () => {
+  // The data array must be initialized properly
   const data = [
     { id: 'notStarted', value: 6, label: 'Não Iniciados', color: '#f44336' },
     { id: 'inProgress', value: 12, label: 'Em Andamento', color: '#ff9800' },
     { id: 'completed', value: 4, label: 'Concluídos', color: '#4caf50' },
   ];
-
   return (
-    <Box sx={{ minHeight: '100vh', backgroundColor: '#f8f9fa', pt: 4 }}>
-      <Container maxWidth="md">
-        {/* Logo */}
-        <Box sx={{ display: 'flex', justifyContent: 'center', mb: 4 }}>
-          <img src="/logo.png" alt="Logo" style={{ height: '60px' }} />
+    <>
+      {/* Header */}
+      <AppBar
+        position="static"
+        sx={{
+          backgroundColor: '#fff',
+          boxShadow: 'none',
+          borderBottom: '1px solid #e0e0e0',
+        }}
+      >
+        <Toolbar sx={{ justifyContent: 'space-between' }}>
+          <img src="/logo.png" alt="Logo" style={{ height: '40px' }} />
+          <Avatar alt="Usuário" src="/avatar.png" sx={{ width: 40, height: 40 }} />
+        </Toolbar>
+      </AppBar>
+
+      {/* Main Layout */}
+      <Container
+        maxWidth="lg"
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          minHeight: 'calc(100vh - 64px)',
+          paddingY: 4,
+          backgroundColor: '#f8f9fa',
+        }}
+      >
+        {/* Total and Clients Buttons */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            maxWidth: 900,
+            mb: 4,
+          }}
+        >
+          <Button
+            variant="contained"
+            sx={{
+              flex: 1,
+              marginRight: 2,
+              backgroundColor: '#3F4E7A',
+              color: '#fff',
+              textTransform: 'none',
+              height: 60,
+              fontSize: '1rem',
+            }}
+          >
+            Total
+          </Button>
+          <Button
+            variant="outlined"
+            sx={{
+              flex: 1,
+              borderColor: '#ccc',
+              color: '#3F4E7A',
+              textTransform: 'none',
+              height: 60,
+              fontSize: '1rem',
+            }}
+          >
+            148 Clientes
+          </Button>
         </Box>
 
-        {/* Botões de Ações e Resumo */}
-        <Grid container spacing={2} alignItems="center">
-          {/* Botões Total */}
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              fullWidth
-              sx={{
-                backgroundColor: '#3F4E7A',
-                color: '#fff',
-                textTransform: 'none',
-                height: 50,
-              }}
-            >
-              Total
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="outlined"
-              fullWidth
-              sx={{
-                borderColor: '#ccc',
-                color: '#3F4E7A',
-                textTransform: 'none',
-                height: 50,
-              }}
-            >
-              148 Clientes
-            </Button>
-          </Grid>
-        </Grid>
+        {/* New Process and New Client Buttons */}
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            width: '100%',
+            maxWidth: 900,
+            mb: 4,
+          }}
+        >
+          <Button
+            variant="contained"
+            startIcon={<AddCircleOutlineIcon />}
+            sx={{
+              flex: 1,
+              marginRight: 2,
+              backgroundColor: '#3F4E7A',
+              color: '#fff',
+              textTransform: 'none',
+              height: 60,
+              fontSize: '1rem',
+            }}
+          >
+            Novo processo
+          </Button>
+          <Button
+            variant="contained"
+            startIcon={<PersonAddAltIcon />}
+            sx={{
+              flex: 1,
+              backgroundColor: '#3F4E7A',
+              color: '#fff',
+              textTransform: 'none',
+              height: 60,
+              fontSize: '1rem',
+            }}
+          >
+            Novo cliente
+          </Button>
+        </Box>
 
-        {/* Botões de Ação */}
-        <Grid container spacing={2} sx={{ mt: 2 }}>
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              fullWidth
-              startIcon={<AddCircleOutlineIcon />}
-              sx={{
-                backgroundColor: '#3F4E7A',
-                color: '#fff',
-                textTransform: 'none',
-                height: 50,
-              }}
-            >
-              Novo processo
-            </Button>
-          </Grid>
-          <Grid item xs={6}>
-            <Button
-              variant="contained"
-              fullWidth
-              startIcon={<PersonAddAltIcon />}
-              sx={{
-                backgroundColor: '#3F4E7A',
-                color: '#fff',
-                textTransform: 'none',
-                height: 50,
-              }}
-            >
-              Novo cliente
-            </Button>
-          </Grid>
-        </Grid>
-
-        {/* Card com Gráfico de Processos */}
+        {/* Card with Pie Chart */}
         <Card
           sx={{
-            mt: 4,
-            p: 2,
-            boxShadow: 1,
-            borderRadius: 2,
-            backgroundColor: '#fff',
+            width: '100%',
+            maxWidth: 900,
+            backgroundColor: '#f8f9fa',
+            boxShadow: 2,
+            p: 3,
           }}
         >
           <CardContent>
-            <Typography variant="h6" sx={{ textAlign: 'center', mb: 2 }}>
+            <Typography
+              variant="h5"
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                mb: 3,
+              }}
+            >
               Processos
             </Typography>
-            {/* Gráfico */}
             <Box
               sx={{
                 display: 'flex',
@@ -128,8 +170,6 @@ function Menu() {
                 height={250}
               />
             </Box>
-
-            {/* Detalhes dos Processos */}
             <Typography variant="body2" sx={{ textAlign: 'center', mb: 1 }}>
               6 Não iniciados
             </Typography>
@@ -142,7 +182,7 @@ function Menu() {
           </CardContent>
         </Card>
 
-        {/* Botão Processos */}
+        {/* Process Button */}
         <Box sx={{ textAlign: 'center', mt: 4 }}>
           <Button
             variant="contained"
@@ -151,15 +191,17 @@ function Menu() {
               color: '#fff',
               textTransform: 'none',
               borderRadius: 20,
-              px: 4,
+              px: 6,
+              py: 2,
+              fontSize: '1rem',
             }}
           >
             Processos
           </Button>
         </Box>
       </Container>
-    </Box>
+    </>
   );
-}
+};
 
 export default Menu;

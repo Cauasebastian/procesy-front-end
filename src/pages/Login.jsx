@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   Box,
-  Container,
   Typography,
   TextField,
   Button,
@@ -24,20 +23,22 @@ function Login() {
     <Box
       sx={{
         display: 'flex',
-        height: '100vh',
+        flexDirection: 'row', // Define layout em linha (lado a lado)
+        width: '100vw', // Ocupe a largura total da tela
+        height: '100vh', // Ocupe a altura total da tela
         overflow: 'hidden',
       }}
     >
       {/* Esquerda - Login */}
       <Box
         sx={{
-          flex: 1, // 50% da largura
+          flex: 1, // Ocupe 50% da largura
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#fff',
-          px: 4,
+          padding: 4, // Espaçamento interno
         }}
       >
         <img
@@ -114,7 +115,7 @@ function Login() {
       {/* Direita - Logo */}
       <Box
         sx={{
-          flex: 1, // 50% da largura
+          flex: 1, // Ocupe 50% da largura
           background: 'linear-gradient(to bottom, #e9f0f8, #f8fbfe)',
           display: 'flex',
           justifyContent: 'center',

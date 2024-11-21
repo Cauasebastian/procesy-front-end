@@ -1,6 +1,7 @@
 import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box'; // Adicione esta importação
 import Login from './pages/Login';
 import Cadastro from './pages/Cadastro';
 import Menu from './pages/Menu';
@@ -22,16 +23,18 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline /> {/* Reseta os estilos padrão do navegador */}
-      <Router>
-        <Routes>
-          <Route path="/" element={<Login />} />
-          <Route path="/cadastro" element={<Cadastro />} />
-          <Route path="/menu" element={<Menu />} />
-          <Route path="/cadastro-clientes" element={<CadastroClientes />} />
-          <Route path="/cadastro-processos" element={<CadastroProcessos />} />
-        </Routes>
-      </Router>
+      <CssBaseline />
+      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/cadastro" element={<Cadastro />} />
+            <Route path="/menu" element={<Menu />} />
+            <Route path="/cadastro-clientes" element={<CadastroClientes />} />
+            <Route path="/cadastro-processos" element={<CadastroProcessos />} />
+          </Routes>
+        </Router>
+      </Box>
     </ThemeProvider>
   );
 }

@@ -24,20 +24,22 @@ function Cadastro() {
     <Box
       sx={{
         display: 'flex',
-        height: '100vh',
+        flexDirection: 'row', // Alinhar os elementos lado a lado
+        width: '100vw', // Ocupar toda a largura da tela
+        height: '100vh', // Ocupar toda a altura da tela
         overflow: 'hidden',
       }}
     >
       {/* Esquerda - Formulário de Cadastro */}
       <Box
         sx={{
-          flex: 1,
+          flex: 1, // Ocupar 50% da largura
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#fff',
-          px: 4,
+          padding: 4, // Espaçamento interno
         }}
       >
         <img
@@ -119,7 +121,7 @@ function Cadastro() {
       {/* Direita - Logo */}
       <Box
         sx={{
-          flex: 1,
+          flex: 1, // Ocupar 50% da largura
           background: 'linear-gradient(to bottom, #e9f0f8, #f8fbfe)',
           display: 'flex',
           justifyContent: 'center',
