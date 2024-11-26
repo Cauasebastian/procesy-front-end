@@ -2,7 +2,7 @@ import React from 'react';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box'; // Adicione esta importação
-import Login from './pages/Login';
+import Login from './pages/Login/Login';
 import Cadastro from './pages/Cadastro';
 import Menu from './pages/Menu';
 import CadastroClientes from './pages/CadastroClientes';
