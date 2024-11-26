@@ -1,0 +1,17 @@
+.select-container {
+    margin-bottom: 16px;
+  }
+  
+  .select-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .select-container select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  

@@ -1,41 +1,31 @@
-import React from 'react';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box'; // Adicione esta importação
-import Login from './pages/Login/Login';
-import Cadastro from './pages/Cadastro';
-import Menu from './pages/Menu';
-import CadastroClientes from './pages/CadastroClientes';
-import CadastroProcessos from './pages/CadastroProcessos';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#1976d2', // Cor primária
-    },
-    secondary: {
-      main: '#dc004e', // Cor secundária
-    },
-  },
-});
+// import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar/Navbar";
+import Home from "./pages/Home/Home";
+import Login from "./pages/Login/Login";
+import NovoCliente from "./pages/NovoCliente";
+import NovoProcesso from "./pages/NovoProcesso";
+import Processos from "./pages/Processos";
+import ClienteInformacoes from "./pages/ClienteInformacoes";
+import "./App.css";
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
-        <Router>
+    <Router>
+      <div className="app">
+        <Navbar />
+        <div className="content">
           <Routes>
-            <Route path="/" element={<Login />} />
-            <Route path="/cadastro" element={<Cadastro />} />
-            <Route path="/menu" element={<Menu />} />
-            <Route path="/cadastro-clientes" element={<CadastroClientes />} />
-            <Route path="/cadastro-processos" element={<CadastroProcessos />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/novo-cliente" element={<NovoCliente />} />
+            <Route path="/novo-processo" element={<NovoProcesso />} />
+            <Route path="/processos" element={<Processos />} />
+            <Route path="/cliente-informacoes" element={<ClienteInformacoes />} />
           </Routes>
-        </Router>
-      </Box>
-    </ThemeProvider>
+        </div>
+      </div>
+    </Router>
   );
 }
 

@@ -1,0 +1,15 @@
+.processos {
+    padding: 20px;
+  }
+  
+  .processos h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+  }
+  
+  .processos button {
+    margin-bottom: 20px;
+  }
+  

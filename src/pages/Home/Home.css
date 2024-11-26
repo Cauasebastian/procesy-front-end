@@ -1,0 +1,22 @@
+.home-container {
+    padding: 20px;
+  }
+  
+  .stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+  }
+  
+  .actions-container {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+  }
+  .card-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  

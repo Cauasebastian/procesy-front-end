@@ -1,0 +1,17 @@
+.datepicker-container {
+    margin-bottom: 16px;
+  }
+  
+  .datepicker-container label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+  }
+  
+  .datepicker-container input[type="date"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
