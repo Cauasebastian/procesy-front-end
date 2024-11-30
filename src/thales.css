@@ -1,0 +1,174 @@
+/* App.css */
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
+
+/* Container principal */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #ffffff; /* Cor de fundo branca */
+  padding: 20px;
+  min-height: 100vh; /* Para garantir que ocupe a tela inteira */
+  width: 100%;
+  max-width: 400px; /* Largura máxima simulando um dispositivo móvel */
+  margin: 0 auto; /* Centraliza horizontalmente */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para efeito de tela */
+  border-radius: 8px; /* Cantos arredondados */
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 10px 0;
+}
+
+.menu-button, .back-button {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.icon {
+  width: 24px;
+  height: 24px;
+  color: #1c1c1c; /* Cor do ícone */
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%; /* Para dar o efeito arredondado no logo */
+}
+
+.profile-pic {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover; /* Garante que a imagem fique dentro do círculo */
+}
+
+/* Linha de separação */
+.divider {
+  width: 100%;
+  height: 2px; /* Aumentei a espessura da linha */
+  background-color: #ccc;
+  margin: 10px 0; /* Espaçamento acima e abaixo da linha */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra mais marcante */
+}
+
+/* Main */
+.main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  flex: 1; /* Permitir que o main ocupe o espaço disponível */
+}
+
+.title-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #333;
+  margin-left: 10px; /* Espaço entre a seta e o título */
+}
+
+.filled-back-button {
+  background-color: #454B60; /* Cor de fundo #454B60 */
+  border-radius: 5px; /* Cantos arredondados */
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+.subtitle {
+  font-size: 18px; 
+  font-weight: bold; 
+  color: #333;
+  align-self: flex-start; 
+  margin-bottom: 20px;
+}
+
+.form-group {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.dropdown-wrapper {
+  position: relative;
+}
+
+.dropdown {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  width: 100%;
+  background-color: #454B60; 
+  color: white; 
+  appearance: none; 
+}
+
+.dropdown-arrow {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.dropdown-arrow::before {
+  content: '\25BE'; 
+  font-size: 18px;
+  color: white; 
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.checkbox {
+  margin-right: 10px;
+}
+
+.checkbox-label {
+  font-size: 16px;
+  color: #333;
+}
+
+
+.footer {
+  margin-top: auto; 
+  margin-bottom: 60px; 
+}
+
+.next-button {
+  padding: 12px 24px;
+  font-size: 16px;
+  background-color: #454B60;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.next-button:hover {
+  background-color: #353946;
+}
