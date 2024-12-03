@@ -2,6 +2,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box'; // Adicione esta importação
 import Login from './pages/Login/Login';
+import Clientes from './pages/Clientes/Clientes';
 import Cadastro from './pages/Cadastro/Cadastro';
 import Processos from './pages/Processos/Processos';
 import NovoProcesso from './pages/NovoProcesso/NovoProcesso';
@@ -10,6 +11,7 @@ import CadastroClientes from './pages/NovoProcesso/CadastroCliente/CadastroClien
 import CadastroProcessos from './pages/NovoProcesso/CadastroProcessos/CadastroProcessos';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CadastroDocumentos from './pages/NovoProcesso/CadastroDocumentos/CadastroDocumentos';
+import { Header } from './components/Header';
 
 const theme = createTheme({
   palette: {
@@ -28,11 +30,13 @@ function App() {
       <CssBaseline />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Router>
+          <Header/>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/processos" element={<Processos />} />
+            <Route path="/clientes" element={<Clientes />} />
             <Route path='/novo-processo' element={<NovoProcesso />} >
               <Route path='cadastro-documentos' element={<CadastroDocumentos/>}/>
               <Route path="cadastro-clientes" element={<CadastroClientes />} />

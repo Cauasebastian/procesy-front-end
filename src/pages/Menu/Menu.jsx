@@ -141,7 +141,6 @@ const Menu = () => {
             </Button>
             <Button
               variant="contained"
-              startIcon={<PersonAddAltIcon />}
               sx={{
                 flex: 1,
                 backgroundColor: '#3F4E7A',
@@ -151,7 +150,7 @@ const Menu = () => {
                 fontSize: '1rem',
               }}
             >
-              Novo cliente
+              Meus Clientes
             </Button>
           </Box>
 
