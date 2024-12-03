@@ -1,0 +1,23 @@
+[
+    {
+        "id": 1,
+        "nome": "Felipe Oliveira",
+        "imgUrl": "https://github.com/felipeoliveira25.png"
+
+    },
+    {
+        "id": 2,
+        "nome": "Lara Nunes",
+        "imgUrl": "https://github.com/felipeoliveira25.png"
+    },
+    {
+        "id": 3,
+        "nome": "Valter Ferreira",
+        "imgUrl": "https://github.com/felipeoliveira25.png"
+    },
+    {
+        "id": 4,
+        "nome": "Renata Macêdo",
+        "imgUrl": "https://github.com/felipeoliveira25.png"
+    }
+]

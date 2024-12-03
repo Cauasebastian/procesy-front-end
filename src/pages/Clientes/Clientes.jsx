@@ -1,21 +1,26 @@
-import { Header } from "../../components/Header";
 import { FaCaretSquareLeft } from "react-icons/fa";
 import styles from "./style.module.css"
 import { Button } from "@mui/material";
 import { FaPen } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-import { TextField } from "../../components/TextField";
+import { InputSearch } from "../../components/TextField";
+import clients from "../../mocks/clients.json"
+import { ClientCard } from "../../components/ClientCard";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Clientes(){
+    const navigate = useNavigate();
     return (
         <div className={styles.container_geral}>
             <div className={styles.container_top}>
-                <div className={styles.div_title_page}>
+                <div className={styles.div_title_page} onClick={() => {
+                    navigate(-1)
+                }}>
                     <FaCaretSquareLeft className={styles.icon}/>
                     <h3 className={styles.title_page}>Clientes</h3>
                 </div>
-                <TextField/>
+                <InputSearch/>
                 <div className={styles.container_buttons}>
                     <Button
                         variant="contained"
@@ -54,6 +59,11 @@ export default function Clientes(){
                             Deletar
                     </Button>
                 </div>
+            </div>
+            <div className={styles.container_cards}>
+                {clients.map((client) => (
+                    <ClientCard nome={client.nome} key={client.id} imagem={client.imgUrl}/>
+                ))}
             </div>
         </div>
     )

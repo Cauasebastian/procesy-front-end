@@ -1,10 +1,13 @@
 import { Button } from "@mui/material"
+import TextField from '@mui/material/TextField';
 import styles from "./style.module.css"
 
-export function TextField(){
+export function InputSearch(){
     return(
         <div>
-            <input type="text" className={styles.input_field} placeholder="Cliente, número do processo"/>
+            <TextField id="outlined-textarea"  placeholder="Nome do cliente..." multiline sx={{
+                width: 400,
+            }}/>
             <Button
                         variant="contained"
                         sx={{
@@ -12,7 +15,7 @@ export function TextField(){
                             backgroundColor: '#3F4E7A',
                             color: '#fff',
                             textTransform: 'none',
-                            height: 50,
+                            height: 56,
                             gap: "1rem",
                             fontSize: '1rem',
                         }}

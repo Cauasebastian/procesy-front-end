@@ -23,36 +23,6 @@ const Menu = () => {
 
   return (
     <>
-      {/* Header */}
-      <AppBar
-        position="static"
-        sx={{
-          backgroundColor: '#fff',
-          boxShadow: 'none',
-          borderBottom: '1px solid #e0e0e0',
-          paddingX: 2,
-        }}
-      >
-        <Toolbar
-          sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-          }}
-        >
-          <img src="/logo.png" alt="Logo" style={{ height: '40px' }} />
-          <Avatar
-            alt="Usuário"
-            src="/avatar.png"
-            sx={{
-              width: 48,
-              height: 48,
-              border: '2px solid #3F4E7A',
-            }}
-          />
-        </Toolbar>
-      </AppBar>
-
       {/* Main Layout */}
       <Box
         sx={{
