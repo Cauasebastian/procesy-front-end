@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./style.module.css"
 import {
   Box,
   Typography,
@@ -6,14 +7,16 @@ import {
   Button,
   InputAdornment,
   IconButton,
-  Link,
 } from '@mui/material';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
+import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import { Visibility, VisibilityOff } from '@mui/icons-material';
+import { useNavigate } from 'react-router-dom';
 
-function Login() {
+function Cadastro() {
   const [showPassword, setShowPassword] = React.useState(false);
+  const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
@@ -23,16 +26,16 @@ function Login() {
     <Box
       sx={{
         display: 'flex',
-        flexDirection: 'row', // Define layout em linha (lado a lado)
-        width: '100vw', // Ocupe a largura total da tela
-        height: '100vh', // Ocupe a altura total da tela
+        flexDirection: 'row', // Alinhar os elementos lado a lado
+        width: '100vw', // Ocupar toda a largura da tela
+        height: '100vh', // Ocupar toda a altura da tela
         overflow: 'hidden',
       }}
     >
-      {/* Esquerda - Login */}
+      {/* Esquerda - Formulário de Cadastro */}
       <Box
         sx={{
-          flex: 1, // Ocupe 50% da largura
+          flex: 1, // Ocupar 50% da largura
           display: 'flex',
           flexDirection: 'column',
           justifyContent: 'center',
@@ -47,20 +50,32 @@ function Login() {
           style={{ width: '80px', marginBottom: '16px' }}
         />
         <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
-          Login
+          Cadastro
         </Typography>
         <Typography sx={{ color: 'text.secondary', mb: 3 }}>
-          Entre com seu usuário e senha para logar
+          Crie sua conta preenchendo os campos abaixo
         </Typography>
         <Box component="form" sx={{ width: '100%', maxWidth: '360px' }}>
           <TextField
             fullWidth
-            label="Usuário"
+            label="Nome Completo"
             margin="normal"
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
                   <PersonOutlineIcon />
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            fullWidth
+            label="E-mail"
+            margin="normal"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment position="start">
+                  <EmailOutlinedIcon />
                 </InputAdornment>
               ),
             }}
@@ -85,37 +100,32 @@ function Login() {
               ),
             }}
           />
-          <Typography
-            variant="body2"
-            sx={{ textAlign: 'right', mt: 1, mb: 2, color: 'text.secondary' }}
-          >
-            <Link href="#" underline="hover">
-              Esqueceu a senha?
-            </Link>
-          </Typography>
           <Button
             fullWidth
             variant="contained"
             sx={{
               backgroundColor: '#3F4E7A',
               ':hover': { backgroundColor: '#2F3C5E' },
+              mt: 2,
             }}
           >
-            Entrar
+            Cadastrar
           </Button>
         </Box>
         <Typography sx={{ mt: 3 }}>
-          Não tem uma conta?{' '}
-          <Link href="#" underline="hover">
-            Registre-se
-          </Link>
+          Já tem uma conta?{' '}
+          <a className={styles.link} onClick={() => {
+            navigate("/")
+          }}>
+            Faça login
+          </a>
         </Typography>
       </Box>
 
       {/* Direita - Logo */}
       <Box
         sx={{
-          flex: 1, // Ocupe 50% da largura
+          flex: 1, // Ocupar 50% da largura
           background: 'linear-gradient(to bottom, #e9f0f8, #f8fbfe)',
           display: 'flex',
           justifyContent: 'center',
@@ -137,4 +147,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Cadastro;

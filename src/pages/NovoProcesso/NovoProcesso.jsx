@@ -1,5 +1,4 @@
-import React from "react";
-import "./thales.css";
+import "./style.css";
 
 function NovoProcesso() {
   return (

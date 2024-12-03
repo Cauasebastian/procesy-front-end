@@ -1,4 +1,3 @@
-import React from 'react';
 import {
   AppBar,
   Toolbar,
@@ -11,9 +10,11 @@ import {
 } from '@mui/material';
 import { PieChart } from '@mui/x-charts/PieChart';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import { useNavigate } from 'react-router-dom';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 
 const Menu = () => {
+  const navigate = useNavigate();
   const data = [
     { id: 'notStarted', value: 6, label: 'Não Iniciados', color: '#f44336' },
     { id: 'inProgress', value: 12, label: 'Em Andamento', color: '#ff9800' },
@@ -123,6 +124,9 @@ const Menu = () => {
           >
             <Button
               variant="contained"
+              onClick={() => {
+                navigate("/novo-processo")
+              }}
               startIcon={<AddCircleOutlineIcon />}
               sx={{
                 flex: 1,
@@ -211,6 +215,9 @@ const Menu = () => {
           <Box sx={{ textAlign: 'center' }}>
             <Button
               variant="contained"
+              onClick={() => {
+                navigate("/processos")
+              }}
               sx={{
                 backgroundColor: '#3F4E7A',
                 color: '#fff',
