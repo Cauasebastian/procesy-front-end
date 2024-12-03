@@ -1,0 +1,20 @@
+.container{
+    width: 100vw;
+    overflow-x: hidden;
+}
+
+.container_cards{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+}
+
+.card_processo{
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+}
+
+.title_atribute{
+    color: #858585;
+}

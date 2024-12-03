@@ -12,6 +12,7 @@ import CadastroProcessos from './pages/NovoProcesso/CadastroProcessos/CadastroPr
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CadastroDocumentos from './pages/NovoProcesso/CadastroDocumentos/CadastroDocumentos';
 import { Header } from './components/Header';
+import Processo from './pages/Processo/Processo';
 
 const theme = createTheme({
   palette: {
@@ -35,7 +36,9 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/menu" element={<Menu />} />
-            <Route path="/processos" element={<Processos />} />
+            <Route path="/processos" element={<Processos />} >
+              <Route path='processo/:id' element={<Processo/>}/>
+            </Route>
             <Route path="/clientes" element={<Clientes />} />
             <Route path='/novo-processo' element={<NovoProcesso />} >
               <Route path='cadastro-documentos' element={<CadastroDocumentos/>}/>

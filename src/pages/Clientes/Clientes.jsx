@@ -1,4 +1,4 @@
-import { FaCaretSquareLeft } from "react-icons/fa";
+
 import styles from "./style.module.css"
 import { Button } from "@mui/material";
 import { FaPen } from "react-icons/fa";
@@ -7,6 +7,7 @@ import { InputSearch } from "../../components/TextField";
 import clients from "../../mocks/clients.json"
 import { ClientCard } from "../../components/ClientCard";
 import { useNavigate } from 'react-router-dom';
+import { PageBack } from "../../components/PageBack";
 
 
 export default function Clientes(){
@@ -14,12 +15,7 @@ export default function Clientes(){
     return (
         <div className={styles.container_geral}>
             <div className={styles.container_top}>
-                <div className={styles.div_title_page} onClick={() => {
-                    navigate(-1)
-                }}>
-                    <FaCaretSquareLeft className={styles.icon}/>
-                    <h3 className={styles.title_page}>Clientes</h3>
-                </div>
+                <PageBack title="Clientes"/>
                 <InputSearch/>
                 <div className={styles.container_buttons}>
                     <Button

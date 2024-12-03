@@ -1,0 +1,18 @@
+.div_title_page{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+}
+
+.icon{
+    height: 1.5rem;
+    width: 1.5rem;
+    color: #454B60;
+}
+
+.title_page{
+    font-size: 1.5rem;
+    color: #454B60;
+}
