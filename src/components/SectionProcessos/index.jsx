@@ -1,8 +1,9 @@
 import TextField from '@mui/material/TextField';
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
 import Card from '@mui/material/Card';
+import styles from "./style.module.css"
 
-export function SectionProcessos({processos}){
+export function SectionProcessos({processo}){
     return(
         <div>
             <h2>Processos</h2>
@@ -15,9 +16,8 @@ export function SectionProcessos({processos}){
                 />
                 <FilterListRoundedIcon/>
             </div>
-            <div>
-                {processos.map((processo) => (
-                    <Card>
+            <div className={styles.div_cards}>
+                    <Card >
                          <p>{processo.status}</p>
                          <section>
                             <span>Ação</span>
@@ -29,7 +29,7 @@ export function SectionProcessos({processos}){
                          </section>
                     </Card>
                    
-                ))}
+               
             </div>
             <hr />
         </div>

@@ -1,9 +1,8 @@
 
 import styles from "./style.module.css"
-import { Button } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import { FaPen } from "react-icons/fa";
 import { FaTrash } from "react-icons/fa";
-import { InputSearch } from "../../components/TextField";
 import clients from "../../mocks/clients.json"
 import { ClientCard } from "../../components/ClientCard";
 import { useNavigate } from 'react-router-dom';
@@ -16,7 +15,13 @@ export default function Clientes(){
         <div className={styles.container_geral}>
             <div className={styles.container_top}>
                 <PageBack title="Clientes"/>
-                <InputSearch/>
+                <div className={styles.div_search}>
+                    <TextField id="outlined-basic" label="Pesquisar" variant="outlined" />
+                    <Button variant="contained" sx={{
+                        height: 55
+                    }}>Pesquisar</Button>
+                </div>
+                
                 <div className={styles.container_buttons}>
                     <Button
                         variant="contained"

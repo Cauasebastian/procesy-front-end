@@ -13,7 +13,7 @@ export default function Processo(){
                     <PageBack title="Detalhes do Processo"/>
                     <h3>Número {processo.numero}</h3>
                     <SectionDocumentos/>
-                    <SectionProcessos/>
+                    <SectionProcessos processo={processo}/>
         
                 </div>
 
