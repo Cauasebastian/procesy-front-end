@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom"
 import { PageBack } from "../../components/PageBack";
 import { SectionDocumentos } from "../../components/SectionDocumentos";
+import { SectionProcessos } from "../../components/SectionProcessos";
 
 export default function Processo(){
     const location = useLocation();
@@ -12,6 +13,7 @@ export default function Processo(){
                     <PageBack title="Detalhes do Processo"/>
                     <h3>Número {processo.numero}</h3>
                     <SectionDocumentos/>
+                    <SectionProcessos/>
         
                 </div>
 
