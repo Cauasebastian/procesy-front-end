@@ -7,14 +7,21 @@
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin: 2rem 0.5rem;
 }
 
 .card_processo{
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 1fr;
+    padding: 1rem;
 }
 
 .title_atribute{
     color: #858585;
+}
+
+.title_page{
+    margin-left: 0.5rem;
 }

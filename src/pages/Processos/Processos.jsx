@@ -5,14 +5,25 @@ import IconButton from '@mui/material/IconButton';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import Typography from '@mui/material/Typography';
 import styles from "./style.module.css"
+import { useNavigate } from 'react-router-dom';
 
 export default function Processos(){
+    const navigate = useNavigate();
+    function redirectToDetails(processo){
+        navigate(`/processo/${processo.numero}`, { state: { processo }, replace: false})
+    }
+    console.log(processos);
     return(
         <div className={styles.container}>
-            <h2>Processos</h2>
+            <h2 className={styles.title_page} onClick={() => console.log("olá")}>Processos</h2>
             <div className={styles.container_cards}>
                 {processos.map((processo) => (
-                    <Card  key={processo.numero}>
+                    <Card  
+                        key={processo.numero} 
+                        onClick={() => redirectToDetails(processo)}
+                        sx={{
+                            cursor: "pointer"
+                        }}>
                         <CardHeader action={
                             <IconButton aria-label="settings">
                                 <MoreVertIcon />

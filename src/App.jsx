@@ -36,9 +36,9 @@ function App() {
             <Route path="/" element={<Login />} />
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/menu" element={<Menu />} />
-            <Route path="/processos" element={<Processos />} >
-              <Route path='processo/:id' element={<Processo/>}/>
-            </Route>
+            <Route path="/processos" element={<Processos />} />
+            <Route path='/processo/:id' element={<Processo/>}/>
+              
             <Route path="/clientes" element={<Clientes />} />
             <Route path='/novo-processo' element={<NovoProcesso />} >
               <Route path='cadastro-documentos' element={<CadastroDocumentos/>}/>
