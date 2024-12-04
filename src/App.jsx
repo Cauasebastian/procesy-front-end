@@ -1,6 +1,6 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box'; // Adicione esta importação
+import Box from '@mui/material/Box'; 
 import Login from './pages/Login/Login';
 import Clientes from './pages/Clientes/Clientes';
 import Cadastro from './pages/Cadastro/Cadastro';
