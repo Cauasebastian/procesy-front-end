@@ -1,4 +1,6 @@
 import { useLocation } from "react-router-dom"
+import { PageBack } from "../../components/PageBack";
+import { SectionDocumentos } from "../../components/SectionDocumentos";
 
 export default function Processo(){
     const location = useLocation();
@@ -7,9 +9,9 @@ export default function Processo(){
     
     return(
                 <div>
-                    <h2>Detalhes do Processo</h2>
+                    <PageBack title="Detalhes do Processo"/>
                     <h3>Número {processo.numero}</h3>
-
+                    <SectionDocumentos/>
         
                 </div>
 
