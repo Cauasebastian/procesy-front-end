@@ -6,15 +6,10 @@ import {
   Button,
   MenuItem,
   Grid,
-  IconButton,
 } from '@mui/material';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import PhoneOutlinedIcon from '@mui/icons-material/PhoneOutlined';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
-import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios'; // Importa o axios
 
 function CadastroClientes() {
   const [clienteInfo, setClienteInfo] = useState({
@@ -25,12 +20,11 @@ function CadastroClientes() {
     cnpj: '',
     telefone: '',
     email: '',
+    naturalidade: '',
+    dataNascimento: '',
   });
 
-  const [clienteDocs, setClienteDocs] = useState({
-    cpf: null,
-    rh: null,
-  });
+  const [loading, setLoading] = useState(false); // Estado de carregamento
 
   const navigate = useNavigate();
 
@@ -42,38 +36,109 @@ function CadastroClientes() {
     }));
   };
 
-  const handleFileUpload = (e, docType) => {
-    const file = e.target.files[0];
-    setClienteDocs((prevDocs) => ({
-      ...prevDocs,
-      [docType]: file ? file.name : null,
-    }));
+  const validateFields = () => {
+    if (!clienteInfo.nome) {
+      alert('Nome é obrigatório.');
+      return false;
+    }
+    if (!clienteInfo.email) {
+      alert('E-mail é obrigatório.');
+      return false;
+    }
+    // Adicione mais validações conforme necessário
+    return true;
+  };
+
+  const handleSubmit = async (event) => {
+    if (event) {
+      event.preventDefault();
+    }
+
+    if (!validateFields()) {
+      return;
+    }
+
+    const token = localStorage.getItem('token'); // Obtém o token do localStorage
+    console.log('Token lido do localStorage:', token);
+
+    if (!token) {
+      alert('Autenticação necessária!');
+      navigate('/login'); // Opcional: redirecionar para a página de login
+      return;
+    }
+
+    // Formate a data de nascimento para ISO8601, se necessário
+    const formattedDataNascimento = new Date(clienteInfo.dataNascimento).toISOString();
+
+    const clientePayload = {
+      nome: clienteInfo.nome,
+      genero: clienteInfo.genero,
+      estadoCivil: clienteInfo.estadoCivil,
+      cpf_cnpj: clienteInfo.cpf || clienteInfo.cnpj, // Envia CPF ou CNPJ
+      telefone: clienteInfo.telefone,
+      email: clienteInfo.email,
+      naturalidade: clienteInfo.naturalidade,
+      dataNascimento: formattedDataNascimento, // Formatação ajustada
+    };
+    console.log('Dados do cliente:', clientePayload);
+
+    setLoading(true); // Inicia o estado de carregamento
+
+    try {
+      // URL da API definida diretamente ou via proxy
+      const response = await axios.post('http://localhost:8080/advogado/clientes', clientePayload, {
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`,
+        },
+      });
+
+      alert('Cliente cadastrado com sucesso!');
+      console.log('Resposta da API:', response.data);
+      navigate('/cadastro-documentos'); // Redireciona para a próxima página
+    } catch (error) {
+      if (error.response) {
+        // O servidor respondeu com um status diferente de 2xx
+        console.error('Erro ao cadastrar cliente:', error.response.data);
+        alert(`Erro ao cadastrar cliente: ${error.response.data.mensagem || error.message}`);
+      } else if (error.request) {
+        // A requisição foi feita, mas nenhuma resposta foi recebida
+        console.error('Erro ao cadastrar cliente: Nenhuma resposta do servidor', error.request);
+        alert('Erro ao cadastrar cliente: Nenhuma resposta do servidor.');
+      } else {
+        // Algo aconteceu na configuração da requisição
+        console.error('Erro ao cadastrar cliente:', error.message);
+        alert(`Erro ao cadastrar cliente: ${error.message}`);
+      }
+    } finally {
+      setLoading(false); // Finaliza o estado de carregamento
+    }
   };
 
   return (
     <>
       <Header />
       <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        width: '100vw',
-        height: '900vh',
-        background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
-        padding: 2,
-      }}
-    >
-      <Box
         sx={{
-          width: '90%',
-          maxWidth: '800px',
-          backgroundColor: '#fff',
-          padding: 4,
-          borderRadius: 2,
-          boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '100vw',
+          minHeight: '100vh',
+          background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
+          padding: 2,
         }}
       >
+        <Box
+          sx={{
+            width: '90%',
+            maxWidth: '800px',
+            backgroundColor: '#fff',
+            padding: 4,
+            borderRadius: 2,
+            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+          }}
+        >
           {/* Header */}
           <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
             Cadastro do Cliente
@@ -111,7 +176,7 @@ function CadastroClientes() {
           </Box>
 
           {/* Formulário de Dados Pessoais */}
-          <Box component="form" sx={{ mt: 2 }}>
+          <Box component="form" sx={{ mt: 2 }} onSubmit={handleSubmit}>
             <TextField
               fullWidth
               label="Nome Completo"
@@ -120,11 +185,7 @@ function CadastroClientes() {
               onChange={handleInputChange}
               margin="normal"
               placeholder="Ex.: João Neto da Silva Pereira"
-              InputProps={{
-                startAdornment: (
-                  <PersonOutlineIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                ),
-              }}
+              required
             />
             <Grid container spacing={2}>
               <Grid item xs={12} sm={6}>
@@ -136,12 +197,7 @@ function CadastroClientes() {
                   onChange={handleInputChange}
                   margin="normal"
                   select
-                  defaultValue=""
-                  InputProps={{
-                    startAdornment: (
-                      <PersonOutlineIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                    ),
-                  }}
+                  required
                 >
                   <MenuItem value="Masculino">Masculino</MenuItem>
                   <MenuItem value="Feminino">Feminino</MenuItem>
@@ -157,12 +213,7 @@ function CadastroClientes() {
                   onChange={handleInputChange}
                   margin="normal"
                   select
-                  defaultValue=""
-                  InputProps={{
-                    startAdornment: (
-                      <PersonOutlineIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                    ),
-                  }}
+                  required
                 >
                   <MenuItem value="Solteiro">Solteiro</MenuItem>
                   <MenuItem value="Casado">Casado</MenuItem>
@@ -178,11 +229,7 @@ function CadastroClientes() {
               onChange={handleInputChange}
               margin="normal"
               placeholder="123.456.789-10"
-              InputProps={{
-                startAdornment: (
-                  <HomeOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                ),
-              }}
+              // Opcional: Adicione validação para CPF/CNPJ
             />
             <TextField
               fullWidth
@@ -192,11 +239,7 @@ function CadastroClientes() {
               onChange={handleInputChange}
               margin="normal"
               placeholder="00.000.000/0000-00"
-              InputProps={{
-                startAdornment: (
-                  <HomeOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                ),
-              }}
+              // Opcional: Adicione validação para CPF/CNPJ
             />
             <TextField
               fullWidth
@@ -206,11 +249,7 @@ function CadastroClientes() {
               onChange={handleInputChange}
               margin="normal"
               placeholder="(81) 98762-2928"
-              InputProps={{
-                startAdornment: (
-                  <PhoneOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                ),
-              }}
+              required
             />
             <TextField
               fullWidth
@@ -220,11 +259,31 @@ function CadastroClientes() {
               onChange={handleInputChange}
               margin="normal"
               placeholder="joao.01@gmail.com"
-              InputProps={{
-                startAdornment: (
-                  <EmailOutlinedIcon sx={{ mr: 1, color: 'text.secondary' }} />
-                ),
+              type="email"
+              required
+            />
+            <TextField
+              fullWidth
+              label="Naturalidade"
+              name="naturalidade"
+              value={clienteInfo.naturalidade}
+              onChange={handleInputChange}
+              margin="normal"
+              placeholder="Ex.: Pernambucano"
+              required
+            />
+            <TextField
+              fullWidth
+              label="Data de Nascimento"
+              name="dataNascimento"
+              value={clienteInfo.dataNascimento}
+              onChange={handleInputChange}
+              margin="normal"
+              type="date"
+              InputLabelProps={{
+                shrink: true,
               }}
+              required
             />
             {/* Botão Final */}
             <Button
@@ -238,12 +297,10 @@ function CadastroClientes() {
                 borderRadius: 8,
                 padding: '10px',
               }}
-              onClick={() => {
-                // Implementar a lógica de submissão ou navegação
-                navigate("/cadastro-documentos");
-              }}
+              type="submit"
+              disabled={loading} // Desativa o botão enquanto estiver carregando
             >
-              Próximo
+              {loading ? 'Processando...' : 'Próximo'}
             </Button>
           </Box>
         </Box>

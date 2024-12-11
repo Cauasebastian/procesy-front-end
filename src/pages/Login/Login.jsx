@@ -32,20 +32,18 @@ function Login() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha: password }),
+        
       });
   
       if (response.ok) {
         const data = await response.json();
   
         // Salvar o token com configurações de segurança
-        Cookies.set("token", data.token, {
-          secure: true, // O cookie será enviado apenas via HTTPS
-          sameSite: "Strict", // Previne envio de cookies em requisições cross-site
-          expires: 1, // O token expira em 1 dia
-        });
-  
-        console.log("Token salvo no cookie:", data.token);
-        console.log("Token lido do cookie:", Cookies.get("token"));
+        // Salvar o token no localStorage
+        localStorage.setItem("token", data.token);
+
+        console.log("Token salvo no localStorage:", data.token);
+        console.log("Token lido do localStorage:", localStorage.getItem("token"));
         alert("Login realizado com sucesso!");
         navigate("/menu");
       } else {
@@ -53,6 +51,7 @@ function Login() {
       }
     } catch (error) {
       console.error("Erro no login:", error);
+      console.log(response);
       alert("Ocorreu um erro ao tentar fazer login.");
     }
   };
