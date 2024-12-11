@@ -9,6 +9,8 @@ import {
   IconButton,
 } from '@mui/material';
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
+import {Header} from '../../../components/Header';
+import { useNavigate } from 'react-router-dom';
 
 function CadastroProcessos() {
   const [uploadedFiles, setUploadedFiles] = useState({
@@ -17,6 +19,7 @@ function CadastroProcessos() {
     peticao: null,
     documentos: null,
   });
+  const navigate = useNavigate();
 
   const handleFileUpload = (e, docType) => {
     const file = e.target.files[0];
@@ -27,13 +30,15 @@ function CadastroProcessos() {
   };
 
   return (
+    <>
+    <Header /> 
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
         width: '100vw',
-        height: '100vh',
+        height: '900vh',
         background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
         padding: 2,
       }}
@@ -55,10 +60,18 @@ function CadastroProcessos() {
 
         {/* Abas - Simulação */}
         <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }}>
-          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555' }}>
+          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555' }}
+          onClick={() => {
+            navigate("/cadastro-clientes")
+          }}
+          >
             Dados Pessoais
           </Button>
-          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555' }}>
+          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555' }}
+          onClick={() => {
+            navigate("/cadastro-documentos")
+          }}
+          >
             Documentos
           </Button>
           <Button variant="text" sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A' }}>
@@ -203,6 +216,7 @@ function CadastroProcessos() {
         </Button>
       </Box>
     </Box>
+    </>
   );
 }
 

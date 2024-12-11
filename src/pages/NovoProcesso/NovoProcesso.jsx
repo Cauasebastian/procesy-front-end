@@ -192,6 +192,9 @@ function NovoProcesso() {
               padding: "10px",
               marginTop: "16px", // Distância do botão ao conteúdo acima
             }}
+            onClick={() => {
+              navigate("/cadastro-clientes")
+            }}
           >
             Próximo
           </Button>
