@@ -1,5 +1,5 @@
-import React from 'react';
-import styles from "./style.module.css"
+import React, { useState } from "react";
+import styles from "./style.module.css";
 import {
   Box,
   Typography,
@@ -7,60 +7,86 @@ import {
   Button,
   InputAdornment,
   IconButton,
-} from '@mui/material';
-import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
-import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
-import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
-import { Visibility, VisibilityOff } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
-import logo from "../../assets/logo.svg"
+} from "@mui/material";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
+import { useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.svg";
 
 function Cadastro() {
-  const [showPassword, setShowPassword] = React.useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleCadastro = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nome, email, senha }),
+      });
+
+      if (response.ok) {
+        alert("Cadastro realizado com sucesso! Você pode fazer login agora.");
+        navigate("/"); // Redireciona para a página de login
+      } else {
+        const errorData = await response.json();
+        alert(`Erro no cadastro: ${errorData.message || "Verifique os dados."}`);
+      }
+    } catch (error) {
+      console.error("Erro no cadastro:", error);
+      alert("Ocorreu um erro. Tente novamente.");
+    }
+  };
+
   return (
     <Box
       sx={{
-        display: 'flex',
-        flexDirection: 'row', // Alinhar os elementos lado a lado
-        width: '100vw', // Ocupar toda a largura da tela
-        height: '100vh', // Ocupar toda a altura da tela
-        overflow: 'hidden',
+        display: "flex",
+        flexDirection: "row", // Alinhar os elementos lado a lado
+        width: "100vw", // Ocupar toda a largura da tela
+        height: "100vh", // Ocupar toda a altura da tela
+        overflow: "hidden",
       }}
     >
       {/* Esquerda - Formulário de Cadastro */}
       <Box
         sx={{
           flex: 1, // Ocupar 50% da largura
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#fff',
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "#fff",
           padding: 4, // Espaçamento interno
         }}
       >
         <img
           src={logo} // Substitua pelo caminho do logo
           alt="Logo"
-          style={{ width: '80px', marginBottom: '16px' }}
+          style={{ width: "80px", marginBottom: "16px" }}
         />
-        <Typography variant="h4" sx={{ fontWeight: 'bold', mb: 1 }}>
+        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1 }}>
           Cadastro
         </Typography>
-        <Typography sx={{ color: 'text.secondary', mb: 3 }}>
+        <Typography sx={{ color: "text.secondary", mb: 3 }}>
           Crie sua conta preenchendo os campos abaixo
         </Typography>
-        <Box component="form" sx={{ width: '100%', maxWidth: '360px' }}>
+        <Box component="form" sx={{ width: "100%", maxWidth: "360px" }}>
           <TextField
             fullWidth
             label="Nome Completo"
             margin="normal"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -73,6 +99,8 @@ function Cadastro() {
             fullWidth
             label="E-mail"
             margin="normal"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -84,8 +112,10 @@ function Cadastro() {
           <TextField
             fullWidth
             label="Senha"
-            type={showPassword ? 'text' : 'password'}
+            type={showPassword ? "text" : "password"}
             margin="normal"
+            value={senha}
+            onChange={(e) => setSenha(e.target.value)}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -105,19 +135,23 @@ function Cadastro() {
             fullWidth
             variant="contained"
             sx={{
-              backgroundColor: '#3F4E7A',
-              ':hover': { backgroundColor: '#2F3C5E' },
+              backgroundColor: "#3F4E7A",
+              ":hover": { backgroundColor: "#2F3C5E" },
               mt: 2,
             }}
+            onClick={handleCadastro}
           >
             Cadastrar
           </Button>
         </Box>
         <Typography sx={{ mt: 3 }}>
-          Já tem uma conta?{' '}
-          <a className={styles.link} onClick={() => {
-            navigate("/")
-          }}>
+          Já tem uma conta?{" "}
+          <a
+            className={styles.link}
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Faça login
           </a>
         </Typography>
@@ -127,19 +161,19 @@ function Cadastro() {
       <Box
         sx={{
           flex: 1, // Ocupar 50% da largura
-          background: 'linear-gradient(to bottom, #e9f0f8, #f8fbfe)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          background: "linear-gradient(to bottom, #e9f0f8, #f8fbfe)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
-        <Box sx={{ textAlign: 'center' }}>
+        <Box sx={{ textAlign: "center" }}>
           <img
             src={logo} // Substitua pelo caminho do logo
             alt="Logo"
-            style={{ width: '150px', marginBottom: '16px' }}
+            style={{ width: "150px", marginBottom: "16px" }}
           />
-          <Typography variant="h4" sx={{ fontWeight: 'bold', color: '#3F4E7A' }}>
+          <Typography variant="h4" sx={{ fontWeight: "bold", color: "#3F4E7A" }}>
             Procesy
           </Typography>
         </Box>
