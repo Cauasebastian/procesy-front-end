@@ -13,23 +13,26 @@ import {
   FormControlLabel,
   IconButton,
   Typography,
+  CircularProgress,
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material"; // Ícone de seta
 import { Header } from "../../components/Header/index";
 import { useNavigate } from "react-router-dom";
+import axios from "axios"; // Importa o axios
 
 function NovoProcesso() {
   const [openDialog, setOpenDialog] = useState(false);
-  const [selectedCliente, setSelectedCliente] = useState("");
+  const [selectedCliente, setSelectedCliente] = useState(null);
   const [isNovoCliente, setIsNovoCliente] = useState(false);
-
-  const clientes = ["Cliente 1", "Cliente 2", "Cliente 3", "Cliente 4"];
+  const [clientes, setClientes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-  
 
-  const handleOpenDialog = () => {
+  const handleOpenDialog = async () => {
     setOpenDialog(true);
+    await fetchClientes();
   };
 
   const handleCloseDialog = () => {
@@ -43,9 +46,38 @@ function NovoProcesso() {
 
   const handleBackClick = () => {
     console.log("Voltar para o formulário inicial");
-    // menu
-    navigate("/menu"); // Aqui você pode redirecionar para outra página, caso necessário
-    // Aqui você pode redirecionar para outra página, caso necessário
+    navigate("/menu"); // Redireciona para a página de menu
+  };
+
+  const fetchClientes = async () => {
+    setLoading(true);
+    setError(null);
+    try {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Autenticação necessária!");
+        navigate("/login");
+        return;
+      }
+
+      const response = await axios.get("http://localhost:8080/advogado/clientes", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      // Filtrar somente objetos (ignorar números)
+      const data = response.data;
+      const clientesFiltrados = data.filter((item) => typeof item === "object" && item !== null);
+      setClientes(clientesFiltrados);
+    } catch (err) {
+      console.error("Erro ao buscar clientes:", err);
+      setError("Erro ao buscar clientes. Tente novamente.");
+      alert("Erro ao buscar clientes. Tente novamente.");
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -109,26 +141,28 @@ function NovoProcesso() {
           {/* Conteúdo superior */}
           <div>
             {/* Título */}
-            <h1
-              style={{
+            <Typography
+              variant="h5"
+              sx={{
                 fontSize: "18px",
                 fontWeight: "bold",
                 marginBottom: "16px",
               }}
             >
               Novo Processo
-            </h1>
+            </Typography>
 
             {/* Subtítulo */}
-            <p
-              style={{
+            <Typography
+              variant="subtitle1"
+              sx={{
                 marginBottom: "16px",
                 fontWeight: "bold",
                 fontSize: "16px",
               }}
             >
               Selecione o Cliente
-            </p>
+            </Typography>
 
             {/* Botão de Selecionar Cliente */}
             <Button
@@ -145,26 +179,55 @@ function NovoProcesso() {
               }}
               disabled={isNovoCliente}
             >
-              {selectedCliente || "Escolher Cliente"}
+              {selectedCliente ? (
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+                  <Typography variant="body1">{selectedCliente.nome}</Typography>
+                </Box>
+              ) : (
+                "Escolher Cliente"
+              )}
             </Button>
 
             {/* Dialog de Seleção de Clientes */}
             <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
-              <DialogTitle style={{ fontWeight: "bold" }}>
-                Escolha um Cliente
-              </DialogTitle>
+              <DialogTitle style={{ fontWeight: "bold" }}>Escolha um Cliente</DialogTitle>
               <DialogContent>
-                <List>
-                  {clientes.map((cliente, index) => (
-                    <ListItem key={index} disablePadding>
-                      <ListItemButton
-                        onClick={() => handleSelectCliente(cliente)}
-                      >
-                        <ListItemText primary={cliente} />
-                      </ListItemButton>
-                    </ListItem>
-                  ))}
-                </List>
+                {loading ? (
+                  <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
+                    <CircularProgress />
+                  </Box>
+                ) : error ? (
+                  <Typography color="error">{error}</Typography>
+                ) : clientes.length === 0 ? (
+                  <Typography>Nenhum cliente encontrado.</Typography>
+                ) : (
+                  <List>
+                    {clientes.map((cliente) => (
+                      <ListItem key={cliente.id} disablePadding>
+                        <ListItemButton onClick={() => handleSelectCliente(cliente)}>
+                          <ListItemText
+                            primary={cliente.nome}
+                            secondary={
+                              <>
+                                <Typography component="span" variant="body2" color="text.primary">
+                                  Email: {cliente.email}
+                                </Typography>
+                                <br />
+                                <Typography component="span" variant="body2" color="text.primary">
+                                  Telefone: {cliente.telefone}
+                                </Typography>
+                                <br />
+                                <Typography component="span" variant="body2" color="text.primary">
+                                  Processos: {cliente.processos ? cliente.processos.length : 0}
+                                </Typography>
+                              </>
+                            }
+                          />
+                        </ListItemButton>
+                      </ListItem>
+                    ))}
+                  </List>
+                )}
               </DialogContent>
             </Dialog>
 
@@ -173,7 +236,12 @@ function NovoProcesso() {
               control={
                 <Checkbox
                   checked={isNovoCliente}
-                  onChange={(e) => setIsNovoCliente(e.target.checked)}
+                  onChange={(e) => {
+                    setIsNovoCliente(e.target.checked);
+                    if (e.target.checked) {
+                      setSelectedCliente(null); // Limpa seleção se optar por novo cliente
+                    }
+                  }}
                 />
               }
               label="Novo cliente"
@@ -193,8 +261,13 @@ function NovoProcesso() {
               marginTop: "16px", // Distância do botão ao conteúdo acima
             }}
             onClick={() => {
-              navigate("/cadastro-clientes")
+              if (isNovoCliente) {
+                navigate("/cadastro-clientes");
+              } else if (selectedCliente) {
+                navigate("/cadastro-clientes", { state: { cliente: selectedCliente } });
+              }
             }}
+            disabled={!selectedCliente && !isNovoCliente}
           >
             Próximo
           </Button>
