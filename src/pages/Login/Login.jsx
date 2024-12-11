@@ -13,6 +13,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 import PersonOutlineIcon from '@mui/icons-material/PersonOutline';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../assets/logo.svg"
 
 function Login() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -46,7 +47,7 @@ function Login() {
         }}
       >
         <img
-          src="/logo.png" // Substitua pelo caminho do logo
+          src={logo} // Substitua pelo caminho do logo
           alt="Logo"
           style={{ width: '80px', marginBottom: '16px' }}
         />
@@ -130,7 +131,7 @@ function Login() {
       >
         <Box sx={{ textAlign: 'center' }}>
           <img
-            src="/logo.png" // Substitua pelo caminho do logo
+            src={logo} // Substitua pelo caminho do logo
             alt="Logo"
             style={{ width: '150px', marginBottom: '16px' }}
           />

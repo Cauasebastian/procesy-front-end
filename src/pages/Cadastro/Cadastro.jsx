@@ -13,6 +13,7 @@ import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import logo from "../../assets/logo.svg"
 
 function Cadastro() {
   const [showPassword, setShowPassword] = React.useState(false);
@@ -45,7 +46,7 @@ function Cadastro() {
         }}
       >
         <img
-          src="/logo.png" // Substitua pelo caminho do logo
+          src={logo} // Substitua pelo caminho do logo
           alt="Logo"
           style={{ width: '80px', marginBottom: '16px' }}
         />
@@ -134,7 +135,7 @@ function Cadastro() {
       >
         <Box sx={{ textAlign: 'center' }}>
           <img
-            src="/logo.png" // Substitua pelo caminho do logo
+            src={logo} // Substitua pelo caminho do logo
             alt="Logo"
             style={{ width: '150px', marginBottom: '16px' }}
           />

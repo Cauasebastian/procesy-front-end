@@ -1,17 +1,15 @@
+import React from 'react';
 import {
-  AppBar,
-  Toolbar,
-  Avatar,
-  Typography,
   Box,
   Button,
   Card,
   CardContent,
+  Typography,
 } from '@mui/material';
 import { PieChart } from '@mui/x-charts/PieChart';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import { useNavigate } from 'react-router-dom';
-import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
+import { Header } from '../../components/Header/index'; // Ajuste o caminho conforme a estrutura do seu projeto
 
 const Menu = () => {
   const navigate = useNavigate();
@@ -23,6 +21,7 @@ const Menu = () => {
 
   return (
     <>
+      <Header /> 
       {/* Main Layout */}
       <Box
         sx={{
@@ -175,6 +174,7 @@ const Menu = () => {
                     marginLeft: 4, // Espaço entre o gráfico e os índices
                   }}
                 >
+                  {/* Você pode adicionar legendas ou índices aqui se desejar */}
                 </Box>
               </Box>
             </CardContent>
