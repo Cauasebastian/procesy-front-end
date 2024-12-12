@@ -95,6 +95,7 @@ function CadastroClientes() {
 
       alert('Cliente cadastrado com sucesso!');
       console.log('Resposta da API:', response.data);
+      localStorage.setItem('clienteId', response.data.id); // Salva o ID do cliente no localStorage
       navigate('/cadastro-documentos'); // Redireciona para a próxima página
     } catch (error) {
       if (error.response) {
