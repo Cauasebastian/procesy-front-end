@@ -36,7 +36,7 @@ function App() {
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/processos" element={<Processos />} />
-            <Route path='/processo/:id' element={<Processo/>}/>
+            <Route path='/processo/:processoId' element={<Processo/>}/>
 
              <Route path="/cadastro-processos" element={<CadastroProcessos />} /> 
              <Route path='/cadastro-documentos' element={<CadastroDocumentos/>}/>
