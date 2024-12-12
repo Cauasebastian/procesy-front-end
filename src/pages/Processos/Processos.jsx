@@ -2,10 +2,7 @@ import processos from "../../mocks/processos.json"
 import Card from '@mui/material/Card';
 import CardHeader from '@mui/material/CardHeader';
 import IconButton from '@mui/material/IconButton';
-import FilterListIcon from '@mui/icons-material/FilterList';
-import AddIcon from '@mui/icons-material/Add';
-import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { ArrowBackIcon, MoreVertIcon, FilterListIcon, AddIcon, PersonAddIcon } from '../../components/Icons/icons.js';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -35,6 +32,21 @@ export default function Processos(){
     return(
         <div className={styles.container}>
             <Header />
+            {/* Botão de Voltar q eu esqueciii */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, margin: 8 }}>
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    onClick={() => navigate('/menu')}
+                    sx={{ backgroundColor: '#454B60', minWidth: '52px', height: '52px', borderRadius: '3px' }}
+                >
+                    <ArrowBackIcon />
+                </Button>
+                <Typography variant="h4" sx={{ ml: 2 }}>
+                    Processos
+                </Typography>
+            </Box>
+
             <Box sx={{display: "flex", justifyContent: "center", alignItems: "center", mb: 2, marginTop: 4}}>
                     <TextField
                         label="Cliente, número do processo, ação..."
@@ -91,7 +103,7 @@ export default function Processos(){
                     </IconButton>
                 </Box>
 
-            <h2 className={styles.title_page} onClick={() => console.log("olá")}>Processos</h2>
+            {/*<h2 className={styles.title_page} onClick={() => console.log("olá")}>Processos</h2>*/}
             <div className={styles.container_cards}>
                 {processos.map((processo) => (
                     // ajustar o css dos cartões individuais de cada processo
