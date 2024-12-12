@@ -15,7 +15,7 @@
     display: grid;
     width: 100%;
     grid-template-columns: 1fr 1fr;
-    padding: 1rem;
+    padding: 2rem;
 }
 
 .title_atribute{
@@ -24,4 +24,5 @@
 
 .title_page{
     margin-left: 0.5rem;
+    font-weight: bold;
 }
