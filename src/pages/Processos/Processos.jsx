@@ -1,16 +1,17 @@
-import processos from "../../mocks/processos.json"
-import Card from '@mui/material/Card';
-import CardHeader from '@mui/material/CardHeader';
-import IconButton from '@mui/material/IconButton';
-import { ArrowBackIcon, MoreVertIcon, FilterListIcon, AddIcon, PersonAddIcon } from '../../components/Icons/icons.js';
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import styles from "./style.module.css"
-import { Header } from '../../components/Header'
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import processos from "../../mocks/processos.json";
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Chip from '@mui/material/Chip';
+import { ArrowBackIcon, FilterListIcon, AddIcon, PersonAddIcon, MoreVertIcon } from '../../components/Icons/icons.js'; // Importa os ícones do arquivo icons.js
+import { Header } from '../../components/Header';
+import styles from "./style.module.css";
 
 export default function Processos(){
     const navigate = useNavigate();
@@ -28,7 +29,7 @@ export default function Processos(){
         processo.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
         processo.codProcesso.toLowerCase().includes(searchTerm.toLowerCase())
     ); 
-    console.log(processos);
+    
     return(
         <div className={styles.container}>
             <Header />
@@ -105,75 +106,76 @@ export default function Processos(){
 
             {/*<h2 className={styles.title_page} onClick={() => console.log("olá")}>Processos</h2>*/}
             <div className={styles.container_cards}>
-                {processos.map((processo) => (
-                    // ajustar o css dos cartões individuais de cada processo
+                {filteredProcessos.map((processo) => (
                     <Card  
                         key={processo.numero} 
                         onClick={() => redirectToDetails(processo)}
-                        sx={{
-                            cursor: "pointer"
-                        }}>
-                        <CardHeader action={
+                        className={styles.card_processo}
+                    >
+                        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                            <Chip 
+                                label="Ativo" 
+                                sx={{ 
+                                    backgroundColor: '#DFF6E0', 
+                                    color: '#228B22', 
+                                    fontSize: '12px', 
+                                    borderRadius: '4px' 
+                                }} 
+                            />
                             <IconButton aria-label="settings">
-                                <MoreVertIcon />
+                                <MoreVertIcon sx={{ color: '#AAAAAA' }} />
                             </IconButton>
-                        }/>
-                        <div className={styles.card_processo}>
-                            {/* Div para o número do processo */}
-                            <div>
+                        </Box>
+                        <CardContent className={styles.card_content}>
+                            <Box>
                                 <Typography className={styles.title_atribute}>
                                     Número
                                 </Typography>
-                                <Typography>
+                                <Typography className={styles.value}>
                                     {processo.numero}
                                 </Typography>
-                            </div>
-                            {/* Div para a data de status */}
-                            <div>
+                            </Box>
+                            <Box>
                                 <Typography className={styles.title_atribute}>
                                     Cliente
                                 </Typography>
-                                <Typography>
+                                <Typography className={styles.value}>
                                     {processo.cliente.nome}
                                 </Typography>
-                            </div>
-                           {/* Div para o código do processo */}
-                            <div>
+                            </Box>
+                            <Box>
                                 <Typography className={styles.title_atribute}>
                                     Data Status
                                 </Typography>
-                                <Typography>
+                                <Typography className={styles.value}>
                                     {processo.dataStatus}
                                 </Typography>
-                            </div>
-                            {/* Div para o código do processo */}
-                            <div>
+                            </Box>
+                            <Box>
                                 <Typography className={styles.title_atribute}>
                                     N° Processo
                                 </Typography>
-                                <Typography>
+                                <Typography className={styles.value}>
                                     {processo.codProcesso}
                                 </Typography>
-                            </div>
-                            {/* Div para a ação */}
-                            <div>
+                            </Box>
+                            <Box>
                                 <Typography className={styles.title_atribute}>
                                     Ação
                                 </Typography>
-                                <Typography>
+                                <Typography className={styles.value}>
                                     {processo.acao}
                                 </Typography>
-                            </div>
-                            {/* Div para o status */}
-                            <div>
+                            </Box>
+                            <Box>
                                 <Typography className={styles.title_atribute}>
                                     Status
                                 </Typography>
-                                <Typography>
+                                <Typography className={styles.value}>
                                     {processo.status}
                                 </Typography>
-                            </div>
-                        </div>
+                            </Box>
+                        </CardContent>
                     </Card>
                 ))}
             </div>
