@@ -16,7 +16,7 @@ import {
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Importa o axios
+import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 function CadastroProcessos() {
   // Estado para os dados do processo
@@ -169,7 +169,7 @@ function CadastroProcessos() {
     try {
       // Enviar o ProcessoDTO para criar o processo
       const response = await axios.post(
-        `http://localhost:8080/advogado/processos?clienteId=${clienteId}`,
+        `/advogado/processos?clienteId=${clienteId}`,
         processoPayload,
         {
           headers: {
@@ -250,8 +250,7 @@ function CadastroProcessos() {
     }
 
     try {
-      const response = await axios.post(
-        `http://localhost:8080/api/documento-processo/upload/${processoId}`,
+      const response = await axios.post(`/api/documento-processo/upload/${processoId}`,
         formData,
         {
           headers: {

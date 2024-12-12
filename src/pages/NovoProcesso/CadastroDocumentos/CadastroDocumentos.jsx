@@ -11,6 +11,7 @@ import {
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import {Header} from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 
 

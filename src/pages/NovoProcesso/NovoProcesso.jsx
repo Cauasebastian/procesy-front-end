@@ -18,7 +18,7 @@ import {
 import { ArrowBack } from "@mui/icons-material"; // Ícone de seta
 import { Header } from "../../components/Header/index";
 import { useNavigate } from "react-router-dom";
-import axios from "axios"; // Importa o axios
+import axios from '../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 function NovoProcesso() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -60,7 +60,7 @@ function NovoProcesso() {
         return;
       }
 
-      const response = await axios.get("http://localhost:8080/advogado/clientes", {
+      const response = await axios.get("/advogado/clientes", {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,

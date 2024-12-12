@@ -22,13 +22,18 @@ function Cadastro() {
   const [senha, setSenha] = useState("");
   const navigate = useNavigate();
 
+  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+if (!API_BASE_URL) {
+  throw new Error("VITE_API_BASE_URL não está definido.");
+}
+
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
 
   const handleCadastro = async () => {
     try {
-      const response = await fetch("http://localhost:8080/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ nome, email, senha }),

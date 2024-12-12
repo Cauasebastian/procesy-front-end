@@ -9,7 +9,7 @@ import {
 } from '@mui/material';
 import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios'; // Importa o axios
+import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 function CadastroClientes() {
   const [clienteInfo, setClienteInfo] = useState({
@@ -86,7 +86,7 @@ function CadastroClientes() {
 
     try {
       // URL da API definida diretamente ou via proxy
-      const response = await axios.post('http://localhost:8080/advogado/clientes', clientePayload, {
+      const response = await axios.post('/advogado/clientes', clientePayload, {
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,

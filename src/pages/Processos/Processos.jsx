@@ -28,6 +28,11 @@ export default function Processos(){
     const [loading, setLoading] = useState(false); // Estado de carregamento
     const [error, setError] = useState(null); // Estado de erro
 
+    const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+      if (!API_BASE_URL) {
+        throw new Error("VITE_API_BASE_URL não está definido.");
+      }
+
     useEffect(() => {
         // Função para obter os processos do backend
         const fetchProcessos = async () => {
@@ -39,7 +44,7 @@ export default function Processos(){
                     throw new Error('Autenticação necessária. Por favor, faça login novamente.');
                 }
 
-                const response = await axios.get('http://localhost:8080/advogado/processos', {
+                const response = await axios.get(`${API_BASE_URL}/advogado/processos`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
