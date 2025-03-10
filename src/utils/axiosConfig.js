@@ -5,19 +5,29 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 if (!API_BASE_URL) {
   throw new Error("VITE_API_BASE_URL não está definido.");
 }
-API_BASE_URL
-// Crie uma instância do axios com a baseURL da sua API
+
 const axiosInstance = axios.create({
-  baseURL: API_BASE_URL, // Ajuste conforme a URL do seu backend
+  baseURL: API_BASE_URL,
 });
 
-// Adicione um interceptador para incluir o token de autenticação em todas as requisições
+// Padrão para as rotas que exigem chave privada
+const PRIVATE_KEY_ROUTES = /^\/api\/documento-processo/; // Regex para match das rotas
+
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = localStorage.getItem('token'); // Certifique-se de que o token está armazenado no localStorage
+    const token = localStorage.getItem('token');
+    const privateKey = localStorage.getItem("privateKey");
+
+    // Configuração base para todas as requisições
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }
+
+    // Adiciona chave privada apenas para rotas específicas
+    if (privateKey && PRIVATE_KEY_ROUTES.test(config.url)) {
+      config.headers['X-Private-Key'] = privateKey; // Nome correto do header
+    }
+
     return config;
   },
   (error) => {

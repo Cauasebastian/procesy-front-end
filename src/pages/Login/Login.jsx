@@ -19,6 +19,7 @@ import styles from "./style.module.css";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [privateKey, setPrivateKey] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
@@ -30,26 +31,36 @@ if (!API_BASE_URL) {
   const handleTogglePassword = () => {
     setShowPassword(!showPassword);
   };
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        setPrivateKey(e.target.result);
+      };
+      reader.readAsText(file);
+    }
+  };
 
   const handleLogin = async () => {
+    if (!privateKey) {
+      alert("Por favor, carregue sua chave privada!");
+      return;
+    }
+
     try {
       const response = await fetch(`${API_BASE_URL}/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, senha: password }),
-        
       });
-  
+
       if (response.ok) {
         const data = await response.json();
-  
-        // Salvar o token com configurações de segurança
-        // Salvar o token no localStorage
         localStorage.setItem("token", data.token);
-
-        console.log("Token salvo no localStorage:", data.token);
-        console.log("Token lido do localStorage:", localStorage.getItem("token"));
-        alert("Login realizado com sucesso!");
+        localStorage.setItem("privateKey", privateKey); // Armazena a chave
+        console.log(data);
+        
         navigate("/menu");
       } else {
         alert("Erro no login. Verifique suas credenciais.");
@@ -127,6 +138,22 @@ if (!API_BASE_URL) {
               ),
             }}
           />
+          {/* Campo de upload da chave */}
+      <TextField
+        type="file"
+        fullWidth
+        label="Chave Privada"
+        margin="normal"
+        InputLabelProps={{ shrink: true }}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <LockOutlinedIcon />
+            </InputAdornment>
+          ),
+        }}
+        onChange={handleFileChange}
+      />
           <Typography
             variant="body2"
             sx={{ textAlign: "right", mt: 1, mb: 2, color: "text.secondary" }}

@@ -40,8 +40,21 @@ if (!API_BASE_URL) {
       });
 
       if (response.ok) {
-        alert("Cadastro realizado com sucesso! Você pode fazer login agora.");
-        navigate("/"); // Redireciona para a página de login
+        const data = await response.json();
+        
+        // Download da chave privada
+        const blob = new Blob([data.privateKey], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'chave_privada.txt';
+        document.body.appendChild(a);
+        a.click();
+        window.URL.revokeObjectURL(url);
+        document.body.removeChild(a);
+
+        alert("Cadastro realizado com sucesso! Faça login com sua chave.");
+        navigate("/");// Redireciona para a página de login
       } else {
         const errorData = await response.json();
         alert(`Erro no cadastro: ${errorData.message || "Verifique os dados."}`);
