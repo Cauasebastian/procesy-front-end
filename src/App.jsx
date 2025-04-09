@@ -1,5 +1,4 @@
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box'; 
 import Login from './pages/Login/Login';
 import Clientes from './pages/Clientes/Clientes';
@@ -13,6 +12,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import CadastroDocumentos from './pages/NovoProcesso/CadastroDocumentos/CadastroDocumentos';
 
 import Processo from './pages/Processo/Processo';
+import GlobalStyle from './GlobalStyle';
+import ChatBotPage from './pages/ChatBot/ChatBot';
 
 const theme = createTheme({
   palette: {
@@ -28,7 +29,7 @@ const theme = createTheme({
 function App() {
   return (
     <ThemeProvider theme={theme}>
-      <CssBaseline />
+      <GlobalStyle />
       <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Router>
           <Routes>
@@ -36,6 +37,7 @@ function App() {
             <Route path="/cadastro" element={<Cadastro />} />
             <Route path="/menu" element={<Menu />} />
             <Route path="/processos" element={<Processos />} />
+            <Route path='/chatbot' element={<ChatBotPage/> } />
             <Route path='/processo/:processoId' element={<Processo/>}/>
 
              <Route path="/cadastro-processos" element={<CadastroProcessos />} /> 

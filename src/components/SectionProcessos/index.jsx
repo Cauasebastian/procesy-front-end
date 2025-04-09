@@ -1,37 +1,21 @@
-import TextField from '@mui/material/TextField';
-import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded';
-import Card from '@mui/material/Card';
-import styles from "./style.module.css"
+import { CardProcesso } from '../CardProcesso'
+import * as S from './styles'
+import { useNavigate } from 'react-router-dom'
 
-export function SectionProcessos({processo}){
+export function SectionCurrentProcess() {
+  const navigate = useNavigate()
     return(
-        <div>
-            <h2>Processos</h2>
-            <h3>Documentos pessoais</h3>
-            <div>
-                <TextField
-                    id="filled-search"
-                    label="Search field"
-                    type="search"
-                />
-                <FilterListRoundedIcon/>
-            </div>
-            <div className={styles.div_cards}>
-                    <Card >
-                         <p>{processo.status}</p>
-                         <section>
-                            <span>Ação</span>
-                            <p>{processo.acao}</p>
-                         </section>
-                         <section>
-                            <span>N° Processo</span>
-                            <p>{processo.codProcesso}</p>
-                         </section>
-                    </Card>
-                   
-               
-            </div>
-            <hr />
-        </div>
+      <S.ContainerProcessos>
+        <S.HeaderProcessos>
+          <S.TitleHeader>Atualizações dos Processos</S.TitleHeader>
+          <S.ButtonChatBot onClick={() => navigate('/chatbot')}>ChatBot</S.ButtonChatBot>
+        </S.HeaderProcessos>
+        <S.ContainerCards>
+          <CardProcesso />
+          <CardProcesso />
+          <CardProcesso/>
+        </S.ContainerCards>
+        <S.ButtonSeeProcess>Ver todos os processos</S.ButtonSeeProcess>
+      </S.ContainerProcessos>
     )
 }

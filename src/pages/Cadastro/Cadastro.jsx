@@ -1,25 +1,16 @@
-import React, { useState } from "react";
-import styles from "./style.module.css";
-import {
-  Box,
-  Typography,
-  TextField,
-  Button,
-  InputAdornment,
-  IconButton,
-} from "@mui/material";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import EmailOutlinedIcon from "@mui/icons-material/EmailOutlined";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.svg";
+
+import { Link, useNavigate } from "react-router-dom";
+import logo from "../../assets/logo.png";
+import { useState } from "react";
+import * as S from './styles'
+import IcoGoogle from "../../assets/ico-google.svg"
+import LogoMaior from '../../assets/logo-maior.png'
 
 function Cadastro() {
   const [showPassword, setShowPassword] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -36,7 +27,7 @@ if (!API_BASE_URL) {
       const response = await fetch(`${API_BASE_URL}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, senha }),
+        body: JSON.stringify({ nome, email, password }),
       });
 
       if (response.ok) {
@@ -66,137 +57,72 @@ if (!API_BASE_URL) {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row", // Alinhar os elementos lado a lado
-        width: "100vw", // Ocupar toda a largura da tela
-        height: "100vh", // Ocupar toda a altura da tela
-        overflow: "hidden",
-      }}
-    >
-      {/* Esquerda - Formulário de Cadastro */}
-      <Box
-        sx={{
-          flex: 1, // Ocupar 50% da largura
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          padding: 4, // Espaçamento interno
-        }}
-      >
-        <img
-          src={logo} // Substitua pelo caminho do logo
-          alt="Logo"
-          style={{ width: "80px", marginBottom: "16px" }}
-        />
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1 }}>
-          Cadastro
-        </Typography>
-        <Typography sx={{ color: "text.secondary", mb: 3 }}>
-          Crie sua conta preenchendo os campos abaixo
-        </Typography>
-        <Box component="form" sx={{ width: "100%", maxWidth: "360px" }}>
-          <TextField
-            fullWidth
-            label="Nome Completo"
-            margin="normal"
-            value={nome}
-            onChange={(e) => setNome(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonOutlineIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            fullWidth
-            label="E-mail"
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <EmailOutlinedIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Senha"
-            type={showPassword ? "text" : "password"}
-            margin="normal"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleTogglePassword} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              backgroundColor: "#3F4E7A",
-              ":hover": { backgroundColor: "#2F3C5E" },
-              mt: 2,
-            }}
+ <S.ContainerGeral>
+      {/* Esquerda - Login */}
+      <S.ContainerInputs>
+        <S.ImgLogo>
+            <img src={logo} alt="Logo" />
+        </S.ImgLogo>
+        <S.TitleRegister>
+          Get Started
+        </S.TitleRegister>
+        
+        <S.RegisterForm>
+          <S.WrapperInput>
+            <S.LabelInput>Nome Completo</S.LabelInput>
+              <S.InputForm
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                placeholder="Nome completo"
+              />
+          </S.WrapperInput>
+          <S.WrapperInput>
+            <S.LabelInput>Email</S.LabelInput>
+              <S.InputForm
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="Digite seu email"
+              />
+          </S.WrapperInput>
+          <S.WrapperInput>
+            <S.LabelInput>Senha</S.LabelInput>
+              <S.InputForm
+                type={showPassword ? "text" : "password"}
+                value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Digite sua senha"
+              />
+          </S.WrapperInput>
+          {/* <S.WrapperInput>
+            <S.LabelInput>Chave Privada</S.LabelInput>
+              <S.InputForm
+                type="file"
+                onChange={handleFileChange}
+              />
+          </S.WrapperInput> */}
+      
+          <S.ButtonSignUp
             onClick={handleCadastro}
           >
-            Cadastrar
-          </Button>
-        </Box>
-        <Typography sx={{ mt: 3 }}>
-          Já tem uma conta?{" "}
-          <a
-            className={styles.link}
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Faça login
-          </a>
-        </Typography>
-      </Box>
+            Entrar
+          </S.ButtonSignUp>
+          <S.DivisorForm></S.DivisorForm>
+        </S.RegisterForm>
+        <S.ButtonGoogle>
+          <img src={IcoGoogle} alt="" />
+          Or sign in with Google
+        </S.ButtonGoogle>
+        <S.ContainerTextHaveAlreadyAccount>
+          <S.TextHaveAlreadyAccount>Já tem uma conta?</S.TextHaveAlreadyAccount>
+          <S.LinkHaveAlreadyAccount to={'/'}>Entre</S.LinkHaveAlreadyAccount>
+        </S.ContainerTextHaveAlreadyAccount>
+      </S.ContainerInputs>
 
       {/* Direita - Logo */}
-      <Box
-        sx={{
-          flex: 1, // Ocupar 50% da largura
-          background: "linear-gradient(to bottom, #e9f0f8, #f8fbfe)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box sx={{ textAlign: "center" }}>
-          <img
-            src={logo} // Substitua pelo caminho do logo
-            alt="Logo"
-            style={{ width: "150px", marginBottom: "16px" }}
-          />
-          <Typography variant="h4" sx={{ fontWeight: "bold", color: "#3F4E7A" }}>
-            Procesy
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+      <S.ContainerLogo>
+          <S.LogoMaiorImage src={LogoMaior} alt="Logo" /> 
+      </S.ContainerLogo>
+    </S.ContainerGeral>
   );
 }
 

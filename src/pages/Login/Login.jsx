@@ -1,20 +1,17 @@
-import React, { useState } from "react";
 import {
   Box,
-  Typography,
-  TextField,
-  Button,
-  InputAdornment,
-  IconButton,
+ 
   Link,
+  
+  Typography,
 } from "@mui/material";
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Cookies from "js-cookie"; // Para salvar o token no cookie
-import logo from "../../assets/logo.svg";
-import styles from "./style.module.css";
+//import Cookies from "js-cookie"; // Para salvar o token no cookie
+import logo from "../../assets/logo.png";
+import IcoGoogle from "../../assets/ico-google.svg"
+import LogoMaior from '../../assets/logo-maior.png'
+import * as S from './styles';
 
 function Login() {
   const [email, setEmail] = useState("");
@@ -73,142 +70,69 @@ if (!API_BASE_URL) {
   };
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row",
-        width: "100vw",
-        height: "100vh",
-        overflow: "hidden",
-      }}
-    >
+    <S.ContainerGeral>
       {/* Esquerda - Login */}
-      <Box
-        sx={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "#fff",
-          padding: 4,
-        }}
-      >
-        <img src={logo} alt="Logo" style={{ width: "80px", marginBottom: "16px" }} />
-        <Typography variant="h4" sx={{ fontWeight: "bold", mb: 1 }}>
-          Login
-        </Typography>
-        <Typography sx={{ color: "text.secondary", mb: 3 }}>
-          Entre com seu usuário e senha para logar
-        </Typography>
-        <Box component="form" sx={{ width: "100%", maxWidth: "360px" }}>
-          <TextField
-            fullWidth
-            label="Email"
-            margin="normal"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <PersonOutlineIcon />
-                </InputAdornment>
-              ),
-            }}
-          />
-          <TextField
-            fullWidth
-            label="Senha"
-            type={showPassword ? "text" : "password"}
-            margin="normal"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            InputProps={{
-              startAdornment: (
-                <InputAdornment position="start">
-                  <LockOutlinedIcon />
-                </InputAdornment>
-              ),
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton onClick={handleTogglePassword} edge="end">
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            }}
-          />
-          {/* Campo de upload da chave */}
-      <TextField
-        type="file"
-        fullWidth
-        label="Chave Privada"
-        margin="normal"
-        InputLabelProps={{ shrink: true }}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <LockOutlinedIcon />
-            </InputAdornment>
-          ),
-        }}
-        onChange={handleFileChange}
-      />
-          <Typography
-            variant="body2"
-            sx={{ textAlign: "right", mt: 1, mb: 2, color: "text.secondary" }}
-          >
+      <S.ContainerInputs>
+        <S.ImgLogo>
+            <img src={logo} alt="Logo" />
+        </S.ImgLogo>
+        <S.TitleLogin>
+          Nice to see you again
+        </S.TitleLogin>
+        
+        <S.LoginForm>
+          <S.WrapperInput>
+            <S.LabelInput>Login</S.LabelInput>
+              <S.InputForm
+                value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email ou telefone"
+              />
+          </S.WrapperInput>
+          <S.WrapperInput>
+            <S.LabelInput>Password</S.LabelInput>
+              <S.InputForm
+                type={showPassword ? "text" : "password"}
+                value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Digite sua senha"
+              />
+          </S.WrapperInput>
+          {/* <S.WrapperInput>
+            <S.LabelInput>Chave Privada</S.LabelInput>
+              <S.InputForm
+                type="file"
+                onChange={handleFileChange}
+              />
+          </S.WrapperInput> */}
+      
+          <S.TextForgotPassword>
             <Link href="#" underline="hover">
               Esqueceu a senha?
             </Link>
-          </Typography>
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              backgroundColor: "#3F4E7A",
-              ":hover": { backgroundColor: "#2F3C5E" },
-            }}
+          </S.TextForgotPassword>
+          <S.ButtonSignIn
             onClick={handleLogin}
           >
             Entrar
-          </Button>
-        </Box>
-        <Typography sx={{ mt: 3 }}>
-          Não tem uma conta?{" "}
-          <a
-            className={styles.link}
-            onClick={() => {
-              navigate("/cadastro");
-            }}
-          >
-            Registre-se
-          </a>
-        </Typography>
-      </Box>
+          </S.ButtonSignIn>
+          <S.DivisorForm></S.DivisorForm>
+        </S.LoginForm>
+        <S.ButtonGoogle>
+          <img src={IcoGoogle} alt="" />
+          Or sign in with Google
+        </S.ButtonGoogle>
+        <S.ContainerTextDontHaveAccount>
+          <S.TextDontHaveAccount>Não tem uma conta?</S.TextDontHaveAccount>
+          <S.LinkDontHaveAccount to={'/cadastro'}>Registre-se</S.LinkDontHaveAccount>
+        </S.ContainerTextDontHaveAccount>
+      </S.ContainerInputs>
 
       {/* Direita - Logo */}
-      <Box
-        sx={{
-          flex: 1,
-          background: "linear-gradient(to bottom, #e9f0f8, #f8fbfe)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <Box sx={{ textAlign: "center" }}>
-          <img
-            src={logo}
-            alt="Logo"
-            style={{ width: "150px", marginBottom: "16px" }}
-          />
-          <Typography variant="h4" sx={{ fontWeight: "bold", color: "#3F4E7A" }}>
-            Procesy
-          </Typography>
-        </Box>
-      </Box>
-    </Box>
+      <S.ContainerLogo>
+          <S.LogoMaiorImage src={LogoMaior} alt="Logo" /> 
+      </S.ContainerLogo>
+    </S.ContainerGeral>
   );
 }
 
