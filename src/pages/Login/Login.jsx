@@ -1,10 +1,4 @@
-import {
-  Box,
- 
-  Link,
-  
-  Typography,
-} from "@mui/material";
+import {Link} from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //import Cookies from "js-cookie"; // Para salvar o token no cookie

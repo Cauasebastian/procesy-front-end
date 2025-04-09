@@ -33,7 +33,7 @@ export const TitleRegister = styled.p`
 
 export const RegisterForm = styled.form`
   width: 100%;
-  max-width: 420px;
+  //max-width: 420px;
   display: flex;
   flex-direction: column;
   justify-content: center;

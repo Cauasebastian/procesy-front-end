@@ -33,7 +33,7 @@ export const TitleLogin = styled.p`
 
 export const LoginForm = styled.form`
   width: 100%;
-  max-width: 420px;
+  //max-width: 420px;
   display: flex;
   flex-direction: column;
   justify-content: center;

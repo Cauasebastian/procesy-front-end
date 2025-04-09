@@ -24,7 +24,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     background-color: #F2F2F2;
-    overflow-x: hidden;
+    
   }
 
   a {

@@ -8,7 +8,7 @@ export function Header(){
     return (
         <S.ContainerHeader>
            
-            <img src={logo} onClick={() => {
+            <img src={logo} style={{cursor: 'pointer'}} onClick={() => {
                 navigate("/menu")
             }}/>
             <img src={imgProfile} />
