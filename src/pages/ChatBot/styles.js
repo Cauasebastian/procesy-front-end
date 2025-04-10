@@ -4,6 +4,8 @@ export const ContainerGeral = styled.div`
   padding: 0 4rem;
   width: 100%;
   margin-top: 3rem;
+  overflow-x: hidden;
+  
 `
 
 export const ContainerGoBack = styled.div`
@@ -30,6 +32,7 @@ export const ContainerChatBot = styled.div`
   margin-top: 3rem;
   border-radius: 6px;
   min-height: 40rem; 
+  margin-bottom: 6rem;
 `;
 
 export const HeaderContainerMessage = styled.div`

@@ -1,64 +1,60 @@
 
-import { Link, useNavigate } from "react-router-dom";
-import logo from "../../assets/logo.png";
 import { useState } from "react";
-import * as S from './styles'
-import IcoGoogle from "../../assets/ico-google.svg"
-import LogoMaior from '../../assets/logo-maior.png'
+import { useNavigate } from "react-router-dom";
+import IcoGoogle from "../../assets/ico-google.svg";
+import LogoMaior from '../../assets/logo-maior.png';
+import logo from "../../assets/logo.png";
+import * as S from './styles';
+import axios from "axios";
+import { api } from "../../lib/axios";
+import { toast, ToastContainer } from "react-toastify";
 
 function Cadastro() {
-  const [showPassword, setShowPassword] = useState(false);
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [senha, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-if (!API_BASE_URL) {
-  throw new Error("VITE_API_BASE_URL não está definido.");
-}
 
-  const handleTogglePassword = () => {
-    setShowPassword(!showPassword);
-  };
+  const handleCadastro = async (e) => {
+    e.preventDefault()
+  try {
+    const response = await api.post(`/auth/register`, {
+      nome,
+      email,
+      senha,
+    });
 
-  const handleCadastro = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ nome, email, password }),
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        
-        // Download da chave privada
-        const blob = new Blob([data.privateKey], { type: 'text/plain' });
-        const url = window.URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'chave_privada.txt';
-        document.body.appendChild(a);
-        a.click();
-        window.URL.revokeObjectURL(url);
-        document.body.removeChild(a);
-
-        alert("Cadastro realizado com sucesso! Faça login com sua chave.");
-        navigate("/");// Redireciona para a página de login
-      } else {
-        const errorData = await response.json();
-        alert(`Erro no cadastro: ${errorData.message || "Verifique os dados."}`);
-      }
-    } catch (error) {
-      console.error("Erro no cadastro:", error);
-      alert("Ocorreu um erro. Tente novamente.");
+    console.log(response.data);
+    toast.success("Cadastro realizado com sucesso! Faça login com sua senha.");
+    setTimeout(() => {
+        navigate("/");
+      }, 3000); 
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      const message =
+        error.response?.data?.message || "Erro desconhecido no servidor.";
+      toast.error(`Erro no cadastro: ${message}`);
+    } else {
+      toast.error("Erro inesperado. Tente novamente.");
     }
-  };
-
+    toast.error("Erro no cadastro:", error);
+  }
+};
   return (
  <S.ContainerGeral>
       {/* Esquerda - Login */}
+      <ToastContainer position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <S.ContainerInputs>
         <S.ImgLogo>
             <img src={logo} alt="Logo" />
@@ -87,8 +83,8 @@ if (!API_BASE_URL) {
           <S.WrapperInput>
             <S.LabelInput>Senha</S.LabelInput>
               <S.InputForm
-                type={showPassword ? "text" : "password"}
-                value={password}
+                type="password"
+                value={senha}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Digite sua senha"
               />
@@ -103,8 +99,9 @@ if (!API_BASE_URL) {
       
           <S.ButtonSignUp
             onClick={handleCadastro}
+            type="submit"
           >
-            Entrar
+            Cadastrar
           </S.ButtonSignUp>
           <S.DivisorForm></S.DivisorForm>
         </S.RegisterForm>

@@ -71,6 +71,8 @@ export const ButtonSignUp = styled.button`
   font-size: 17.5px;
   padding:1rem;
   margin-top: 1rem;
+  border: none;
+  border-radius: 6px;
 `
 
 export const DivisorForm = styled.div`
@@ -90,6 +92,9 @@ export const ButtonGoogle = styled.button`
   gap: 1rem;
   font-weight: 600;
   font-family: 'Poppins', sans-serif;
+  background-color: #000;
+  border: none;
+  border-radius: 6px;
 `
 
 export const ContainerLogo = styled.div`

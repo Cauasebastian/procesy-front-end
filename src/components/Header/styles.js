@@ -11,6 +11,7 @@ export const ContainerHeader = styled.header`
     box-shadow: 0px 2px 12px rgba(0, 0, 0, 0.12);
     background-color: #FFF;
     height: 6rem;
+    z-index: 10;
 `
 
 

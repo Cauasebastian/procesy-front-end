@@ -1,12 +1,12 @@
-import axios from "axios";
+import { api } from "../lib/axios";
 
 export const enviarMensagemParaIA = async (mensagem) => {
-  const token = localStorage.getItem("token"); // ou onde você guarda seu JWT
+  const token = localStorage.getItem("token");
 
   if (!token) throw new Error("Token não encontrado");
 
-  const response = await axios.post(
-    "http://localhost:8080/api/assistant/chat", // ou sua URL deployada
+  const response = await api.post(
+    "/api/assistant/chat", // ou sua URL deployada
     mensagem,
     {
       headers: {
@@ -15,6 +15,6 @@ export const enviarMensagemParaIA = async (mensagem) => {
       },
     }
   );
-
+  console.log(response.data)
   return response.data;
 };
