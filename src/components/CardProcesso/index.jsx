@@ -1,12 +1,15 @@
 import { useEffect, useState } from "react"
 import * as S from "./styles"
+import { useNavigate } from "react-router-dom"
 
 // eslint-disable-next-line react/prop-types
-export const CardProcesso = ({processType, initialDate, clientName, processNumber, clientTelephone, processStatus}) => {
+export const CardProcesso = ({processType, initialDate, clientName, processNumber, clientTelephone, processStatus, processoId}) => {
   
   const [colorStatusBg, setColorStatusBg] = useState("")
   const [colorBallStatus, setColorBallStatus] = useState("")
   const [colorTextStatus, setColorTextStatus] = useState("")
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (processStatus === "Em andamento") {
@@ -51,7 +54,7 @@ export const CardProcesso = ({processType, initialDate, clientName, processNumbe
         <S.LabelField>Número do processo</S.LabelField>
         <S.ValueField>{processNumber}</S.ValueField>
       </S.SectionValues>
-      <S.ButtonMoreInfo>Ver mais</S.ButtonMoreInfo>
+      <S.ButtonMoreInfo onClick={() => navigate(`/processo/${processoId}`)}>Ver mais</S.ButtonMoreInfo>
     </S.ContainerCard>
   )
 }

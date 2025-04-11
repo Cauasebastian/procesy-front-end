@@ -21,6 +21,7 @@ export function SectionCurrentProcess({allProcess}) {
               clientTelephone={process.cliente.telefone}
               clientName={process.cliente.nome}
               processNumber={process.numeroProcesso}
+              processoId={process.id}
             />
           ))}
           
