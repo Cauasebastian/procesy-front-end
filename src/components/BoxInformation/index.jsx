@@ -1,22 +1,23 @@
 import * as S from './styles'
 
-export const BoxInformation = () => {
+// eslint-disable-next-line react/prop-types
+export const BoxInformation = ({total, uninitiated, inProgress, completed }) => {
   return (
     <S.ContainerBoxes>
       <S.BoxTotal>
-        <S.TextValueTotal>21</S.TextValueTotal>
+        <S.TextValueTotal>{total}</S.TextValueTotal>
         <S.DescriptionBoxTotal>Total</S.DescriptionBoxTotal>
       </S.BoxTotal>
       <S.BoxOtherInfo>
-         <S.TextValue>6</S.TextValue>
+         <S.TextValue>{uninitiated}</S.TextValue>
         <S.DescriptionBoxOther>Não iniciados</S.DescriptionBoxOther>
       </S.BoxOtherInfo>
        <S.BoxOtherInfo>
-         <S.TextValue>12</S.TextValue>
+         <S.TextValue>{inProgress}</S.TextValue>
         <S.DescriptionBoxOther>Em andamento</S.DescriptionBoxOther>
       </S.BoxOtherInfo>
        <S.BoxOtherInfo>
-         <S.TextValue>3</S.TextValue>
+        <S.TextValue>{ completed}</S.TextValue>
         <S.DescriptionBoxOther>Concluídos</S.DescriptionBoxOther>
       </S.BoxOtherInfo>
     </S.ContainerBoxes>

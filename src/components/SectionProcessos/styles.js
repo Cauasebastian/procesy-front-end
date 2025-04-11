@@ -7,7 +7,7 @@ export const ContainerProcessos = styled.div`
     margin-top: 3rem;
     background-color:#ffffff;
     justify-content: center;
-    padding: 1.5rem;
+    padding: 1rem;
     border-radius: 6px;
     flex-direction: column;
     align-items: center;
@@ -19,7 +19,7 @@ export const HeaderProcessos = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 2rem;
+  padding: 1rem 2rem;
 `
 
 export const TitleHeader = styled.span`

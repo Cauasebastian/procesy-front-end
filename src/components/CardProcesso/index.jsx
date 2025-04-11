@@ -1,31 +1,55 @@
+import { useEffect, useState } from "react"
 import * as S from "./styles"
 
-export const CardProcesso = () => {
+// eslint-disable-next-line react/prop-types
+export const CardProcesso = ({processType, initialDate, clientName, processNumber, clientTelephone, processStatus}) => {
+  
+  const [colorStatusBg, setColorStatusBg] = useState("")
+  const [colorBallStatus, setColorBallStatus] = useState("")
+  const [colorTextStatus, setColorTextStatus] = useState("")
+
+  useEffect(() => {
+    if (processStatus === "Em andamento") {
+      setColorStatusBg("#ffeeb0")
+      setColorBallStatus("#c3aa1d")
+      setColorTextStatus("#000000")
+    }
+    if (processStatus === "Finalizado") {
+      setColorStatusBg("#d4fdd8")
+      setColorTextStatus("#000000")
+      setColorBallStatus("#1DC32E")
+    }
+    if (processStatus === "Não iniciado") {
+      setColorStatusBg("#fdd4d4")
+      setColorTextStatus("#000000")
+      setColorBallStatus("#c31d1d")
+    }
+  }, [processStatus])
   return (
     <S.ContainerCard>
-      <S.StatusProcessContainer bgColor='#EDFAEE'>
-        <S.BallStatusProcess bgColor='#1DC32E' />
-        <S.TextProcessStatus color='#4A4A4A'>Ativo</S.TextProcessStatus>
+      <S.StatusProcessContainer bgColor={colorStatusBg}>
+        <S.BallStatusProcess bgColor={ colorBallStatus} />
+        <S.TextProcessStatus color={colorTextStatus}>{processStatus}</S.TextProcessStatus>
       </S.StatusProcessContainer>
       <S.SectionValues>
-        <S.LabelField>Número</S.LabelField>
-        <S.ValueField>124</S.ValueField>
+        <S.LabelField>Tipo</S.LabelField>
+        <S.ValueField>{processType}</S.ValueField>
       </S.SectionValues>
       <S.SectionValues>
-        <S.LabelField>Data Status</S.LabelField>
-        <S.ValueField>23/03/2019</S.ValueField>
+        <S.LabelField>Início</S.LabelField>
+        <S.ValueField>{initialDate}</S.ValueField>
       </S.SectionValues>
       <S.SectionValues>
-        <S.LabelField>Ação</S.LabelField>
-        <S.ValueField>Usucapião</S.ValueField>
+        <S.LabelField>Telefone</S.LabelField>
+        <S.ValueField>{clientTelephone}</S.ValueField>
       </S.SectionValues>
       <S.SectionValues>
         <S.LabelField>Cliente</S.LabelField>
-        <S.ValueField>João Carlos da Silva</S.ValueField>
+        <S.ValueField>{clientName}</S.ValueField>
       </S.SectionValues>
       <S.SectionValues>
         <S.LabelField>Número do processo</S.LabelField>
-        <S.ValueField>PRO.0010891</S.ValueField>
+        <S.ValueField>{processNumber}</S.ValueField>
       </S.SectionValues>
       <S.ButtonMoreInfo>Ver mais</S.ButtonMoreInfo>
     </S.ContainerCard>

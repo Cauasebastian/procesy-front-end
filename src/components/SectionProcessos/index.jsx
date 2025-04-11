@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { CardProcesso } from '../CardProcesso'
 import * as S from './styles'
 import { useNavigate } from 'react-router-dom'
 
-export function SectionCurrentProcess() {
+export function SectionCurrentProcess({allProcess}) {
   const navigate = useNavigate()
     return(
       <S.ContainerProcessos>
@@ -11,9 +12,19 @@ export function SectionCurrentProcess() {
           <S.ButtonChatBot onClick={() => navigate('/chatbot')}>ChatBot</S.ButtonChatBot>
         </S.HeaderProcessos>
         <S.ContainerCards>
-          <CardProcesso />
-          <CardProcesso />
-          <CardProcesso/>
+          {allProcess.map((process) => (
+            <CardProcesso
+              key={process.id}
+              processStatus={process.status}
+              processType={process.tipoProcesso}
+              initialDate={process.dataInicio}
+              clientTelephone={process.cliente.telefone}
+              clientName={process.cliente.nome}
+              processNumber={process.numeroProcesso}
+            />
+          ))}
+          
+         
         </S.ContainerCards>
         <S.ButtonSeeProcess>Ver todos os processos</S.ButtonSeeProcess>
       </S.ContainerProcessos>

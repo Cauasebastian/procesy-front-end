@@ -13,14 +13,6 @@ export default function ChatBotPage() {
   const [message, setMessage] = useState("");
   const [messages, setMessages] = useState([]);
 
-//   const getBotResponse = async (msg) => {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       resolve("Resposta da IA para: " + msg);
-//     }, 1000);
-//   });
-// };
-
 const handleSendMessage = async () => {
   if (message.trim() === "") return;
 
@@ -30,6 +22,7 @@ const handleSendMessage = async () => {
 
   try {
     const resposta = await enviarMensagemParaIA(message);
+    
     setMessages((prev) => [...prev, { text: resposta, sender: "bot" }]);
   } catch (error) {
     console.error(error);

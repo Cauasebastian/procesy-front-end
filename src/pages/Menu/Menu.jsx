@@ -1,25 +1,27 @@
-// src/pages/Menu/Menu.jsx
 
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { BoxInformation } from '../../components/BoxInformation';
 import { Header } from '../../components/Header/index'; // Ajuste o caminho conforme a estrutura do seu projeto
-import axios from '../../utils/axiosConfig'; // Utilize a instância configurada do axios
 import { SectionCurrentProcess } from '../../components/SectionProcessos';
 import * as S from './styles'
+import { api } from '../../lib/axios';
 
 const Menu = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Estados para armazenar processos e clientes
-  const [processos, setProcessos] = useState([]);
+  const [process, setProcess] = useState([]);
+  const [completedProcess, setCompletedProcess] = useState(0);
+  const [inProgressProcess, setInProgressProcess] = useState(0);
+  const [uninitiatedProcess, setUninitiatedProcess] = useState(0);
+
   const [clientes, setClientes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Estados para processamento dos dados do gráfico
-  const [chartData, setChartData] = useState([]);
-  const [totalProcessos, setTotalProcessos] = useState(0);
+
+  const [totalProcess, setTotalProcess] = useState(0);
   const [totalClientes, setTotalClientes] = useState(0);
 
 
@@ -27,54 +29,38 @@ const Menu = () => {
     const fetchData = async () => {
       setLoading(true);
       setError(null);
+      const token = localStorage.getItem("token")
       try {
-        // Buscar processos
-        const processosResponse = await axios.get('/advogado/processos');
-        setProcessos(processosResponse.data);
+        const clientesResponse = await api.get('/advogado/clientes', {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        })
+        const processosResponse = await api.get('/advogado/processos', {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`
+          }
+        });
+        setProcess(processosResponse.data);
 
-        // Buscar clientes
-        const clientesResponse = await axios.get('/advogado/clientes');
+        const finalizados = process.filter(p => p.status === 'Finalizado').length;
+        const emAndamento = process.filter(p => p.status === 'Em andamento').length;
+        const naoIniciados = process.filter(p => p.status === 'Não iniciado').length;
+
+        setCompletedProcess(finalizados);
+        setInProgressProcess(emAndamento);
+        setUninitiatedProcess(naoIniciados);
+
+        
+        console.log(clientesResponse.data)
+        console.log(processosResponse.data)
         setClientes(clientesResponse.data);
 
-        // Processar dados para o gráfico
-        const statusCounts = processosResponse.data.reduce(
-          (acc, processo) => {
-            const status = processo.status.toLowerCase();
-            if (status === 'concluído') {
-              acc.concluido += 1;
-            } else if (status === 'em andamento') {
-              acc.emAndamento += 1;
-            } else if (status === 'pendente') {
-              acc.pendente += 1;
-            }
-            return acc;
-          },
-          { concluido: 0, emAndamento: 0, pendente: 0 }
-        );
+        
 
-        const processedChartData = [
-          {
-            id: 'concluido',
-            value: statusCounts.concluido,
-            label: 'Concluídos',
-            color: '#4caf50', // Verde
-          },
-          {
-            id: 'emAndamento',
-            value: statusCounts.emAndamento,
-            label: 'Em Andamento',
-            color: '#ff9800', // Laranja
-          },
-          {
-            id: 'pendente',
-            value: statusCounts.pendente,
-            label: 'Pendentes',
-            color: '#f44336', // Vermelho
-          },
-        ];
-
-        setChartData(processedChartData);
-        setTotalProcessos(processosResponse.data.length);
+        setTotalProcess(processosResponse.data.length);
         setTotalClientes(clientesResponse.data.length);
       } catch (err) {
         console.error('Erro ao buscar dados:', err);
@@ -89,15 +75,21 @@ const Menu = () => {
     };
 
     fetchData();
-  }, []);
+  }, [process]);
+
 
 
   return (
     <>
       <Header />
       <S.ContainerMenu>
-        <BoxInformation/>
-        <SectionCurrentProcess/>
+        <BoxInformation
+          total={totalProcess ?? 0}
+          inProgress={inProgressProcess ?? 0}
+          uninitiated={uninitiatedProcess ?? 0}
+          completed={completedProcess ?? 0}
+        />
+        <SectionCurrentProcess allProcess={process}/>
       </S.ContainerMenu>
       
     </>
