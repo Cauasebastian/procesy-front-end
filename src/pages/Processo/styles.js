@@ -44,12 +44,37 @@ export const HeaderContainer = styled.div`
 `
 
 export const TextHeader = styled.span`
-  font-size: 1.2rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 500;
 `
 
 export const ButtonInfoClient = styled.button`
   background-color: #454B60;
   color: #FFF;
   padding: 0.5rem 3rem;
+`
+
+export const ContainerInfoProcesso = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 3rem;
+  gap: 2rem;
+`
+
+export const NumberProcess = styled.span`
+  font-size: 1.2rem;
+  font-weight: 500;
+`
+
+export const ContainerDocumentos = styled.div`
+
+`
+
+export const TitleContainerDocuments = styled.span`
+
+`
+
+export const SectionDocuments = styled.div`
+  
 `

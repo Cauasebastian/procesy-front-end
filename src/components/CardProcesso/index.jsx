@@ -42,18 +42,20 @@ export const CardProcesso = ({processType, initialDate, clientName, processNumbe
         <S.LabelField>Início</S.LabelField>
         <S.ValueField>{initialDate}</S.ValueField>
       </S.SectionValues>
-      <S.SectionValues>
-        <S.LabelField>Telefone</S.LabelField>
-        <S.ValueField>{clientTelephone}</S.ValueField>
-      </S.SectionValues>
+      {clientTelephone ?
+        <S.SectionValues>
+          <S.LabelField>Telefone</S.LabelField>
+          <S.ValueField>{clientTelephone}</S.ValueField>
+        </S.SectionValues>
+      : null}
       <S.SectionValues>
         <S.LabelField>Cliente</S.LabelField>
         <S.ValueField>{clientName}</S.ValueField>
       </S.SectionValues>
-      <S.SectionValues>
+      {processNumber ? <S.SectionValues>
         <S.LabelField>Número do processo</S.LabelField>
         <S.ValueField>{processNumber}</S.ValueField>
-      </S.SectionValues>
+      </S.SectionValues> : null}
       <S.ButtonMoreInfo onClick={() => navigate(`/processo/${processoId}`)}>Ver mais</S.ButtonMoreInfo>
     </S.ContainerCard>
   )
