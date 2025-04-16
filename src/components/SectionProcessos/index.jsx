@@ -27,7 +27,7 @@ export function SectionCurrentProcess({allProcess}) {
           
          
         </S.ContainerCards>
-        <S.ButtonSeeProcess>Ver todos os processos</S.ButtonSeeProcess>
+        <S.ButtonSeeProcess onClick={() => navigate('/processos')}>Ver todos os processos</S.ButtonSeeProcess>
       </S.ContainerProcessos>
     )
 }
