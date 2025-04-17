@@ -92,7 +92,7 @@ export default function Processos(){
             </S.ContainerSearchProcess>
             <S.ContainerButtons>
               <S.ButtonNewProcess>Novo Processo</S.ButtonNewProcess>
-              <S.ButtonNewClient>Novo Cliente</S.ButtonNewClient>
+              <S.ButtonNewClient onClick={() => navigate('/clientes')}>Ver clientes</S.ButtonNewClient>
             </S.ContainerButtons>
           </S.HeaderProcessos>
           {process.map((process) => (
