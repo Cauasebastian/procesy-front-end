@@ -22,7 +22,7 @@ export default function Clientes(){
               <S.ButtonSearch>Pesquisar</S.ButtonSearch>
             </S.ContainerSearchClient>
             <S.ContainerButtons>
-              <S.ButtonNewClient>Novo cliente</S.ButtonNewClient>
+              <S.ButtonNewClient onClick={() => navigate('/cadastro-clientes')}>Novo cliente</S.ButtonNewClient>
             </S.ContainerButtons>
           </S.HeaderClients>
         </S.ContainerClients>
