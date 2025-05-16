@@ -3,12 +3,14 @@ import {
   Box,
   Typography,
   TextField,
+  IconButton,
   Button,
   MenuItem,
   Grid,
 } from '@mui/material';
 import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import { PageBack } from '../../../components/PageBack';
 import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 function CadastroClientes() {
@@ -27,6 +29,10 @@ function CadastroClientes() {
   const [loading, setLoading] = useState(false); // Estado de carregamento
 
   const navigate = useNavigate();
+
+  // const handleBack = () => {
+  //   navigate('/clientes'); 
+  // };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -119,197 +125,198 @@ function CadastroClientes() {
   return (
     <>
       <Header />
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: '100vw',
-          // height: '110vh',
-          background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
-          padding: 2,
-        }}
-      >
+      <PageBack title="Voltar para Cliente" customPath="/clientes" />
         <Box
           sx={{
-            width: '100%',
-            maxWidth: '800px', 
-            minHeight: '600px',
-            backgroundColor: '#fff',
-            padding: 4,
-            borderRadius: 2,
-            boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
-            
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            width: '100vw',
+            // height: '110vh',
+            background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
+            padding: 2,
           }}
         >
-          {/* Header */}
-          <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
-            Cadastro do Cliente
-          </Typography>
+          <Box
+            sx={{
+              width: '100%',
+              maxWidth: '800px', 
+              minHeight: '600px',
+              backgroundColor: '#fff',
+              padding: 4,
+              borderRadius: 2,
+              boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+              
+            }}
+          >
+            {/* Header */}
+            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
+              Cadastro do Cliente
+            </Typography>
 
-          {/* Abas de Navegação */}
-          <Box sx={{ display: 'flex', gap: 10, mb: 3, justifyContent: 'center' }}>
-            <Button
-              variant="text"
-              sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A' }}
-              onClick={() => {
-                navigate("/cadastro-clientes");
-              }}
-            >
-              Dados Pessoais
-            </Button>
-            <Button
-              variant="text"
-              sx={{ fontWeight: 'bold', color: '#555' }}
-              onClick={() => {
-                navigate("/cadastro-documentos");
-              }}
-            >
-              Documentos
-            </Button>
-            <Button
-              variant="text"
-              sx={{ fontWeight: 'bold', color: '#555' }}
-              onClick={() => {
-                navigate("/cadastro-processos");
-              }}
-            >
-              Processo
-            </Button>
-          </Box>
+            {/* Abas de Navegação */}
+            <Box sx={{ display: 'flex', gap: 10, mb: 3, justifyContent: 'center' }}>
+              <Button
+                variant="text"
+                sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A' }}
+                onClick={() => {
+                  navigate("/cadastro-clientes");
+                }}
+              >
+                Dados Pessoais
+              </Button>
+              <Button
+                variant="text"
+                sx={{ fontWeight: 'bold', color: '#555' }}
+                onClick={() => {
+                  navigate("/cadastro-documentos");
+                }}
+              >
+                Documentos
+              </Button>
+              <Button
+                variant="text"
+                sx={{ fontWeight: 'bold', color: '#555' }}
+                onClick={() => {
+                  navigate("/cadastro-processos");
+                }}
+              >
+                Processo
+              </Button>
+            </Box>
 
-          {/* Formulário de Dados Pessoais */}
-          <Box component="form" sx={{ mt: 2 }} onSubmit={handleSubmit}>
-            <TextField
-              fullWidth
-              label="Nome Completo"
-              name="nome"
-              value={clienteInfo.nome}
-              onChange={handleInputChange}
-              margin="normal"
-              placeholder="Ex.: João Neto da Silva Pereira"
-              required
-            />
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Gênero"
-                  name="genero"
-                  value={clienteInfo.genero}
-                  onChange={handleInputChange}
-                  margin="normal"
-                  select
-                  required
-                >
-                  <MenuItem value="Masculino">Masculino</MenuItem>
-                  <MenuItem value="Feminino">Feminino</MenuItem>
-                  <MenuItem value="Outro">Outro</MenuItem>
-                </TextField>
+            {/* Formulário de Dados Pessoais */}
+            <Box component="form" sx={{ mt: 2 }} onSubmit={handleSubmit}>
+              <TextField
+                fullWidth
+                label="Nome Completo"
+                name="nome"
+                value={clienteInfo.nome}
+                onChange={handleInputChange}
+                margin="normal"
+                placeholder="Ex.: João Neto da Silva Pereira"
+                required
+              />
+              <Grid container spacing={2}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Gênero"
+                    name="genero"
+                    value={clienteInfo.genero}
+                    onChange={handleInputChange}
+                    margin="normal"
+                    select
+                    required
+                  >
+                    <MenuItem value="Masculino">Masculino</MenuItem>
+                    <MenuItem value="Feminino">Feminino</MenuItem>
+                    <MenuItem value="Outro">Outro</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Estado Civil"
+                    name="estadoCivil"
+                    value={clienteInfo.estadoCivil}
+                    onChange={handleInputChange}
+                    margin="normal"
+                    select
+                    required
+                  >
+                    <MenuItem value="Solteiro">Solteiro</MenuItem>
+                    <MenuItem value="Casado">Casado</MenuItem>
+                    <MenuItem value="Divorciado">Divorciado</MenuItem>
+                  </TextField>
+                </Grid>
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  fullWidth
-                  label="Estado Civil"
-                  name="estadoCivil"
-                  value={clienteInfo.estadoCivil}
-                  onChange={handleInputChange}
-                  margin="normal"
-                  select
-                  required
-                >
-                  <MenuItem value="Solteiro">Solteiro</MenuItem>
-                  <MenuItem value="Casado">Casado</MenuItem>
-                  <MenuItem value="Divorciado">Divorciado</MenuItem>
-                </TextField>
-              </Grid>
-            </Grid>
-            <TextField
-              fullWidth
-              label="CPF"
-              name="cpf"
-              value={clienteInfo.cpf}
-              onChange={handleInputChange}
-              margin="normal"
-              placeholder="123.456.789-10"
-              // Opcional: Adicione validação para CPF/CNPJ
-            />
-            <TextField
-              fullWidth
-              label="CNPJ"
-              name="cnpj"
-              value={clienteInfo.cnpj}
-              onChange={handleInputChange}
-              margin="normal"
-              placeholder="00.000.000/0000-00"
-              // Opcional: Adicione validação para CPF/CNPJ
-            />
-            <TextField
-              fullWidth
-              label="Telefone"
-              name="telefone"
-              value={clienteInfo.telefone}
-              onChange={handleInputChange}
-              margin="normal"
-              placeholder="(81) 98762-2928"
-              required
-            />
-            <TextField
-              fullWidth
-              label="E-mail"
-              name="email"
-              value={clienteInfo.email}
-              onChange={handleInputChange}
-              margin="normal"
-              placeholder="joao.01@gmail.com"
-              type="email"
-              required
-            />
-            <TextField
-              fullWidth
-              label="Naturalidade"
-              name="naturalidade"
-              value={clienteInfo.naturalidade}
-              onChange={handleInputChange}
-              margin="normal"
-              placeholder="Ex.: Pernambucano"
-              required
-            />
-            <TextField
-              fullWidth
-              label="Data de Nascimento"
-              name="dataNascimento"
-              value={clienteInfo.dataNascimento}
-              onChange={handleInputChange}
-              margin="normal"
-              type="date"
-              InputLabelProps={{
-                shrink: true,
-              }}
-              required
-            />
-            {/* Botão Final */}
-            <Button
-              fullWidth
-              variant="contained"
-              sx={{
-                mt: 4,
-                backgroundColor: '#3F4E7A',
-                ':hover': { backgroundColor: '#2F3C5E' },
-                fontWeight: 'bold',
-                borderRadius: 8,
-                padding: '10px',
-              }}
-              type="submit"
-              disabled={loading} // Desativa o botão enquanto estiver carregando
-            >
-              {loading ? 'Processando...' : 'Próximo'}
-            </Button>
+              <TextField
+                fullWidth
+                label="CPF"
+                name="cpf"
+                value={clienteInfo.cpf}
+                onChange={handleInputChange}
+                margin="normal"
+                placeholder="123.456.789-10"
+                // Opcional: Adicione validação para CPF/CNPJ
+              />
+              <TextField
+                fullWidth
+                label="CNPJ"
+                name="cnpj"
+                value={clienteInfo.cnpj}
+                onChange={handleInputChange}
+                margin="normal"
+                placeholder="00.000.000/0000-00"
+                // Opcional: Adicione validação para CPF/CNPJ
+              />
+              <TextField
+                fullWidth
+                label="Telefone"
+                name="telefone"
+                value={clienteInfo.telefone}
+                onChange={handleInputChange}
+                margin="normal"
+                placeholder="(81) 98762-2928"
+                required
+              />
+              <TextField
+                fullWidth
+                label="E-mail"
+                name="email"
+                value={clienteInfo.email}
+                onChange={handleInputChange}
+                margin="normal"
+                placeholder="joao.01@gmail.com"
+                type="email"
+                required
+              />
+              <TextField
+                fullWidth
+                label="Naturalidade"
+                name="naturalidade"
+                value={clienteInfo.naturalidade}
+                onChange={handleInputChange}
+                margin="normal"
+                placeholder="Ex.: Pernambucano"
+                required
+              />
+              <TextField
+                fullWidth
+                label="Data de Nascimento"
+                name="dataNascimento"
+                value={clienteInfo.dataNascimento}
+                onChange={handleInputChange}
+                margin="normal"
+                type="date"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                required
+              />
+              {/* Botão Final */}
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{
+                  mt: 4,
+                  backgroundColor: '#3F4E7A',
+                  ':hover': { backgroundColor: '#2F3C5E' },
+                  fontWeight: 'bold',
+                  borderRadius: 8,
+                  padding: '10px',
+                }}
+                type="submit"
+                disabled={loading} // Desativa o botão enquanto estiver carregando
+              >
+                {loading ? 'Processando...' : 'Próximo'}
+              </Button>
+            </Box>
           </Box>
         </Box>
-      </Box>
-    </>
-  );
+      </>
+    );
+  
 }
-
 export default CadastroClientes;

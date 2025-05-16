@@ -16,6 +16,7 @@ import {
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import { PageBack } from '../../../components/PageBack';
 import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 function CadastroProcessos() {
@@ -353,6 +354,7 @@ function CadastroProcessos() {
   return (
     <>
       <Header />
+      <PageBack title="Voltar para Cliente" customPath="/clientes" />
       <Box
         sx={{
           display: 'flex',
