@@ -13,5 +13,3 @@ export const ContainerHeader = styled.header`
     height: 6rem;
     z-index: 10;
 `
-
-

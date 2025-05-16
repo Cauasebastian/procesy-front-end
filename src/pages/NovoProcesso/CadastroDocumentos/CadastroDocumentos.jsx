@@ -38,7 +38,7 @@ function handleProcessoClick() {
 
   return (
     <>
-    <Header /> 
+      <Header customStyles={{ padding: '1rem 3rem' }} />
     <PageBack title="Voltar para Cliente" customPath="/clientes" />
     <Box
       sx={{
@@ -54,8 +54,7 @@ function handleProcessoClick() {
       <Box
         sx={{
           width: '90%',
-          maxWidth: '800px',
-          
+          maxWidth: '800px', 
           backgroundColor: '#fff',
           padding: 4,
           borderRadius: 2,
@@ -63,23 +62,23 @@ function handleProcessoClick() {
         }}
       >
         {/* Header */}
-        <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3, textAlign: 'center' }}>
+        <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>
           Cadastro do Cliente
         </Typography>
 
         {/* Abas - Simulação */}
         <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }}>
-          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555' }}
+          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555', padding: '1% 10%' }}
           onClick={() => {
             navigate("/cadastro-clientes")
           }}
           >
             Dados Pessoais
           </Button>
-          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555',  borderBottom: '2px solid #3F4E7A' }}>
+          <Button variant="text" sx={{ fontWeight: 'bold', color: '#555',  borderBottom: '2px solid #3F4E7A', padding: '1% 10%' }}>
             Documentos
           </Button>
-          <Button variant="text" sx={{ fontWeight: 'bold', color: '#3F4E7A'}} 
+          <Button variant="text" sx={{ fontWeight: 'bold', color: '#3F4E7A', padding: '1% 10%'}} 
           onClick={() => {
                 navigate("/cadastro-processos")
               }}
@@ -159,9 +158,11 @@ function handleProcessoClick() {
 
         {/* Botão Final */}
         <Button
-          fullWidth
+          // fullWidth
           variant="contained"
           sx={{
+            width: '30%',
+            ml: '70%',
             mt: 4,
             backgroundColor: "#3F4E7A",
             ":hover": { backgroundColor: "#2F3C5E" },

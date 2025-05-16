@@ -12,6 +12,7 @@ import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import { PageBack } from '../../../components/PageBack';
 import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
+import { Padding } from '@mui/icons-material';
 
 function CadastroClientes() {
   const [clienteInfo, setClienteInfo] = useState({
@@ -124,7 +125,7 @@ function CadastroClientes() {
 
   return (
     <>
-      <Header />
+      <Header customStyles={{ padding: '1rem 3rem' }} />
       <PageBack title="Voltar para Cliente" customPath="/clientes" />
         <Box
           sx={{
@@ -150,15 +151,15 @@ function CadastroClientes() {
             }}
           >
             {/* Header */}
-            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 2, textAlign: 'center' }}>
+            <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 4, textAlign: 'center' }}>
               Cadastro do Cliente
             </Typography>
 
             {/* Abas de Navegação */}
-            <Box sx={{ display: 'flex', gap: 10, mb: 3, justifyContent: 'center' }}>
+            <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }}>
               <Button
                 variant="text"
-                sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A' }}
+                sx={{ fontWeight: 'bold', color: '#3F4E7A', padding: '1% 10%', borderBottom: '2px solid #3F4E7A' }}
                 onClick={() => {
                   navigate("/cadastro-clientes");
                 }}
@@ -167,7 +168,7 @@ function CadastroClientes() {
               </Button>
               <Button
                 variant="text"
-                sx={{ fontWeight: 'bold', color: '#555' }}
+                sx={{ fontWeight: 'bold', color: '#555', padding: '1% 10%'}}
                 onClick={() => {
                   navigate("/cadastro-documentos");
                 }}
@@ -176,7 +177,7 @@ function CadastroClientes() {
               </Button>
               <Button
                 variant="text"
-                sx={{ fontWeight: 'bold', color: '#555' }}
+                sx={{ fontWeight: 'bold', color: '#555', padding: '1% 10%' }}
                 onClick={() => {
                   navigate("/cadastro-processos");
                 }}
@@ -297,15 +298,17 @@ function CadastroClientes() {
               />
               {/* Botão Final */}
               <Button
-                fullWidth
+                // fullWidth
                 variant="contained"
                 sx={{
+                  width: '30%',
                   mt: 4,
+                  ml: '70%',
                   backgroundColor: '#3F4E7A',
                   ':hover': { backgroundColor: '#2F3C5E' },
                   fontWeight: 'bold',
                   borderRadius: 8,
-                  padding: '10px',
+                  padding: '10px 0',
                 }}
                 type="submit"
                 disabled={loading} // Desativa o botão enquanto estiver carregando
