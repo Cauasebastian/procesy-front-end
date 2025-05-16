@@ -53,6 +53,7 @@ function handleProcessoClick() {
         sx={{
           width: '90%',
           maxWidth: '800px',
+          
           backgroundColor: '#fff',
           padding: 4,
           borderRadius: 2,

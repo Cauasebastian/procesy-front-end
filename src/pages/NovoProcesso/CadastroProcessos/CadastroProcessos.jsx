@@ -359,7 +359,7 @@ function CadastroProcessos() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100vw',
-          minHeight: '100vh',
+          // minHeight: '100vh',
           background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
           padding: 2,
         }}
@@ -368,6 +368,7 @@ function CadastroProcessos() {
           sx={{
             width: '90%',
             maxWidth: '800px',
+            minHeight: '700px',
             backgroundColor: '#fff',
             padding: 4,
             borderRadius: 2,

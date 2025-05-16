@@ -125,19 +125,21 @@ function CadastroClientes() {
           justifyContent: 'center',
           alignItems: 'center',
           width: '100vw',
-          minHeight: '100vh',
+          // height: '110vh',
           background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
           padding: 2,
         }}
       >
         <Box
           sx={{
-            width: '90%',
-            maxWidth: '800px',
+            width: '100%',
+            maxWidth: '800px', 
+            minHeight: '600px',
             backgroundColor: '#fff',
             padding: 4,
             borderRadius: 2,
             boxShadow: '0px 4px 12px rgba(0, 0, 0, 0.1)',
+            
           }}
         >
           {/* Header */}
@@ -146,7 +148,7 @@ function CadastroClientes() {
           </Typography>
 
           {/* Abas de Navegação */}
-          <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }}>
+          <Box sx={{ display: 'flex', gap: 10, mb: 3, justifyContent: 'center' }}>
             <Button
               variant="text"
               sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A' }}
