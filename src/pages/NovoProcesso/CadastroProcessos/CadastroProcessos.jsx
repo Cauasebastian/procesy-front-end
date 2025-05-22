@@ -16,6 +16,7 @@ import {
 import UploadFileOutlinedIcon from '@mui/icons-material/UploadFileOutlined';
 import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
+import { PageBack } from '../../../components/PageBack';
 import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
 function CadastroProcessos() {
@@ -352,14 +353,15 @@ function CadastroProcessos() {
 
   return (
     <>
-      <Header />
+      <Header customStyles={{ padding: '1rem 3rem' }} />
+      <PageBack title="Voltar para Cliente" customPath="/clientes" />
       <Box
         sx={{
           display: 'flex',
           justifyContent: 'center',
           alignItems: 'center',
           width: '100vw',
-          minHeight: '100vh',
+          // minHeight: '100vh',
           background: 'linear-gradient(to bottom, #f5f5f5, #ffffff)',
           padding: 2,
         }}
@@ -368,6 +370,7 @@ function CadastroProcessos() {
           sx={{
             width: '90%',
             maxWidth: '800px',
+            minHeight: '700px',
             backgroundColor: '#fff',
             padding: 4,
             borderRadius: 2,
@@ -375,7 +378,7 @@ function CadastroProcessos() {
           }}
         >
           {/* Header */}
-          <Typography variant="h6" sx={{ fontWeight: 'bold', mb: 3, textAlign: 'center' }}>
+          <Typography variant="h5" sx={{ fontWeight: 'bold', mb: 3, textAlign: 'center' }}>
             Cadastro do Processo
           </Typography>
 
@@ -383,7 +386,7 @@ function CadastroProcessos() {
           <Box sx={{ display: 'flex', gap: 2, mb: 3, justifyContent: 'center' }}>
             <Button
               variant="text"
-              sx={{ fontWeight: 'bold', color: '#555' }}
+              sx={{ fontWeight: 'bold', color: '#555', padding: '1% 10%' }}
               onClick={() => {
                 navigate("/cadastro-clientes");
               }}
@@ -392,7 +395,7 @@ function CadastroProcessos() {
             </Button>
             <Button
               variant="text"
-              sx={{ fontWeight: 'bold', color: '#555' }}
+              sx={{ fontWeight: 'bold', color: '#555', padding: '1% 10%' }}
               onClick={() => {
                 navigate("/cadastro-documentos");
               }}
@@ -401,7 +404,7 @@ function CadastroProcessos() {
             </Button>
             <Button
               variant="text"
-              sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A' }}
+              sx={{ fontWeight: 'bold', color: '#3F4E7A', borderBottom: '2px solid #3F4E7A', padding: '1% 10%' }}
             >
               Processo
             </Button>
@@ -834,9 +837,11 @@ function CadastroProcessos() {
 
               {/* Botão Final */}
               <Button
-                fullWidth
+                // fullWidth
                 variant="contained"
                 sx={{
+                  width: '40%',
+                  ml: '60%',
                   mt: 4,
                   backgroundColor: '#3F4E7A',
                   ':hover': { backgroundColor: '#2F3C5E' },
@@ -847,7 +852,7 @@ function CadastroProcessos() {
                 type="submit"
                 disabled={loading || documentUploadLoading} // Desativa o botão enquanto estiver carregando
               >
-                {loading ? 'Processando...' : 'Criar Novo Processo'}
+                {loading ? 'Processando...' : 'Cadastrar Novo Cliente e Processo'}
               </Button>
             </Box>
           )}

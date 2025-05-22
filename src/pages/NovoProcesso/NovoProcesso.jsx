@@ -46,7 +46,7 @@ function NovoProcesso() {
 
   const handleBackClick = () => {
     console.log("Voltar para o formulário inicial");
-    navigate("/menu"); // Redireciona para a página de menu
+    navigate("/clientes"); // Redireciona para a página de clientes
   };
 
   const fetchClientes = async () => {

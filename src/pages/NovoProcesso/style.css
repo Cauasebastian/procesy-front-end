@@ -13,10 +13,9 @@ body {
   align-items: center;
   background-color: #ffffff; /* Cor de fundo branca */
   padding: 20px;
-  min-height: 100vh; /* Para garantir que ocupe a tela inteira */
+  /* min-height: 100vh; Para garantir que ocupe a tela inteira */
   width: 100%;
   max-width: 400px; /* Largura máxima simulando um dispositivo móvel */
-  margin: 0 auto; /* Centraliza horizontalmente */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra para efeito de tela */
   border-radius: 8px; /* Cantos arredondados */
 }
