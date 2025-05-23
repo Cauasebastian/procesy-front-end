@@ -108,7 +108,6 @@ function NovoProcesso() {
           }}
           onClick={handleBackClick}
         >
-          
           <IconButton>
             <ArrowBack sx={{ color: "black", fontSize: "24px" }} />
           </IconButton>
@@ -120,14 +119,14 @@ function NovoProcesso() {
               marginLeft: "8px",
             }}
           >
-            Novo Processo
+            Formulário inicial
           </Typography>
         </Box>
 
         {/* Box centralizado */}
         <Box
           sx={{
-            width: "70%", // Ocupa 40% da largura da tela
+            width: "40%", // Ocupa 40% da largura da tela
             minWidth: "300px", // Garantir responsividade para telas menores
             backgroundColor: "#fff",
             borderRadius: "12px",
@@ -145,12 +144,12 @@ function NovoProcesso() {
             <Typography
               variant="h5"
               sx={{
-                fontSize: "20px",
+                fontSize: "18px",
                 fontWeight: "bold",
-                marginBottom: "48px",
+                marginBottom: "16px",
               }}
             >
-              Selecione o Cliente
+              Novo Processo
             </Typography>
 
             {/* Subtítulo */}
@@ -169,15 +168,14 @@ function NovoProcesso() {
             <Button
               variant="outlined"
               onClick={handleOpenDialog}
-              
+              fullWidth
               sx={{
                 justifyContent: "space-between",
                 textTransform: "none",
-                padding: "9px",
-                marginBottom: "14px",
+                padding: "10px",
+                marginBottom: "16px",
                 backgroundColor: "#454B60",
                 color: "#fff",
-                width: "40%",
               }}
               disabled={isNovoCliente}
             >
@@ -232,7 +230,7 @@ function NovoProcesso() {
                 )}
               </DialogContent>
             </Dialog>
-              <Box sx={{ display: "flex", flexDirection: "column", }}></Box>
+
             {/* Checkbox Novo Cliente */}
             <FormControlLabel
               control={
@@ -251,31 +249,28 @@ function NovoProcesso() {
           </div>
 
           {/* Botão Próximo */}
-             <Box sx={{ display: "flex", justifyContent: "flex-end", width: "100%" }}>
-             <Button
-              variant="contained"
-               sx={{
-                 backgroundColor: "#454B60",
-                 ":hover": { backgroundColor: "#454B60" },
-                  fontWeight: "bold",
-                   borderRadius: 8,
-                   padding: "10px",
-                   marginTop: "16px", // Distância do botão ao conteúdo acima
-                    width: "25%", // Metade do tamanho anterior (50% -> 25%)
-                }}
-                  onClick={() => {
-                     if (isNovoCliente) {
-                      navigate("/cadastro-clientes");
-                     } else if (selectedCliente) {
-                    navigate("/cadastro-clientes", { state: { cliente: selectedCliente } });
-                      }
-                 }}
-                    disabled={!selectedCliente && !isNovoCliente}
-              >
-                 Próximo
-              </Button>
-            </Box>
-
+          <Button
+            fullWidth
+            variant="contained"
+            sx={{
+              backgroundColor: "#454B60",
+              ":hover": { backgroundColor: "#454B60" },
+              fontWeight: "bold",
+              borderRadius: 8,
+              padding: "10px",
+              marginTop: "16px", // Distância do botão ao conteúdo acima
+            }}
+            onClick={() => {
+              if (isNovoCliente) {
+                navigate("/cadastro-clientes");
+              } else if (selectedCliente) {
+                navigate("/cadastro-clientes", { state: { cliente: selectedCliente } });
+              }
+            }}
+            disabled={!selectedCliente && !isNovoCliente}
+          >
+            Próximo
+          </Button>
         </Box>
       </Box>
     </>

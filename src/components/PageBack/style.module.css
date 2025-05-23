@@ -1,18 +1,20 @@
-.div_title_page{
+.div_title_page {
     display: flex;
-    justify-content: center;
+    justify-content: flex-start; /* Alinha o conteúdo à esquerda */
     align-items: center;
     gap: 1rem;
     cursor: pointer;
+    padding: 1rem; /* Adiciona um pouco de espaçamento interno */
 }
 
-.icon{
+.icon {
     height: 1.5rem;
     width: 1.5rem;
     color: #454B60;
 }
 
-.title_page{
+.title_page {
     font-size: 1.5rem;
     color: #454B60;
+    margin: 0; /* Garante que o título não tenha margem extra */
 }

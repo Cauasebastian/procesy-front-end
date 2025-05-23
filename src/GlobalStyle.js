@@ -31,7 +31,6 @@ const GlobalStyle = createGlobalStyle`
     cursor: pointer;
     border-radius: 6px;
     padding: 0.5rem 1rem;
-    border: none;
   }
 
   a {

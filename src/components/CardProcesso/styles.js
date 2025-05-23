@@ -17,7 +17,7 @@ export const StatusProcessContainer = styled.div`
   align-items: center;
   padding: 0.5rem;
   border-radius: 6px;
-  gap: 0.6rem;
+  gap: 0.3rem;
 `
 
 export const TextProcessStatus = styled.span`
@@ -49,5 +49,3 @@ export const ButtonMoreInfo = styled.button`
   color: #FFF;
   background-color: #454B60;
 `
-
-//#E3D190 - amarelo em andamento

@@ -1,5 +1,5 @@
 import { Link } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 //import Cookies from "js-cookie"; // Para salvar o token no cookie
 import IcoGoogle from "../../assets/ico-google.svg";
@@ -15,12 +15,7 @@ function Login() {
   const navigate = useNavigate();
 
 
-   useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      navigate("/menu");
-    }
-  }, []);
+
 
 
 
@@ -39,7 +34,7 @@ const handleLogin = async (e) => {
       localStorage.setItem("token", data.token);
       toast.success("Login realizado com sucesso!");
       setTimeout(() => {
-        navigate("/menu", { replace: true});
+        navigate("/menu");
       }, 3000); 
     }
  else {
