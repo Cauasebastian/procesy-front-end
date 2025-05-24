@@ -4,11 +4,10 @@ import axios from 'axios';
 import ButtonBack from '../../assets/btn-back.svg'
 import {
   Container,
-  Input,
+  InputSearch,
   SearchButton,
   ActionButtons,
   ActionButton,
-  IconButton,
   CardsContainer,
   Card,
   CardHeader,
@@ -16,12 +15,12 @@ import {
   CardContent,
   AttributeTitle,
   AttributeValue,
-  LoaderContainer,
-  ErrorMessage,
   EmptyMessage,
   ContainerGoBack, ImageArrow, TextBack,
   WrapperProcess,
-  HeaderContainerProcess
+  HeaderContainerProcess,
+  WrapperSearch,
+  SectionValues
 } from './styles'
 import { Header } from '../../components/Header';
 import { ArrowBack, FilterList, Add, PersonAdd, MoreVert } from '@mui/icons-material';
@@ -88,80 +87,76 @@ export default function Processos() {
   return (
     <>
      <Header />
-    <Container>
-     
-
+     <Container>
       <ContainerGoBack onClick={() => navigate(-1)}>
-                 <ImageArrow src={ButtonBack} />
-                 <TextBack>Processos</TextBack>
-        </ContainerGoBack>
+        <ImageArrow src={ButtonBack} />
+        <TextBack>Processos</TextBack>
+      </ContainerGoBack>
 
       <WrapperProcess>
-      <HeaderContainerProcess>
-        <Input
-          placeholder="Cliente, número do processo, ação..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <SearchButton onClick={() => console.log('Pesquisar')}>Pesquisar</SearchButton>
-      
+        <HeaderContainerProcess>
+            <WrapperSearch>
+              <InputSearch
+                placeholder="Cliente, número do processo, ação..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <SearchButton onClick={() => console.log('Pesquisar')}>Pesquisar</SearchButton>
+            </WrapperSearch>
+            
+          
 
-      <ActionButtons>
-        <ActionButton onClick={() => navigate('/novo-processo')}>
-          Novo Processo <Add />
-        </ActionButton>
-        <ActionButton onClick={() => navigate('/novo-cliente')}>
-          Novo Cliente <PersonAdd />
-        </ActionButton>
-        <IconButton onClick={() => console.log('Filtro')}>
-          <FilterList />
-        </IconButton>
-      </ActionButtons>
-      </HeaderContainerProcess>
+          <ActionButtons>
+            <ActionButton onClick={() => navigate('/novo-processo')}>
+              Novo Processo <Add />
+            </ActionButton>
+            <ActionButton onClick={() => navigate('/novo-cliente')}>
+              Novo Cliente <PersonAdd />
+            </ActionButton>
+          </ActionButtons>
+        </HeaderContainerProcess>
         
 
 
-      <CardsContainer>
-        {filteredProcessos.length === 0 && !loading && !error && (
-          <EmptyMessage>Nenhum processo encontrado.</EmptyMessage>
-        )}
-        {filteredProcessos.map((processo) => (
-          <Card key={processo.id} onClick={() => redirectToDetails(processo)}>
-            <CardHeader>
-              <StatusChip style={getStatusStyle(processo.status)}>
-                {processo.status}
-              </StatusChip>
-              <MoreVert style={{ color: '#AAAAAA' }} />
-            </CardHeader>
-            <CardContent>
-              <div>
-                <AttributeTitle>Número do Processo</AttributeTitle>
-                <AttributeValue>{processo.numeroProcesso}</AttributeValue>
-              </div>
-              <div>
-                <AttributeTitle>Cliente</AttributeTitle>
-                <AttributeValue>{processo.cliente.nome}</AttributeValue>
-              </div>
-              <div>
-                <AttributeTitle>Data de Início</AttributeTitle>
-                <AttributeValue>{new Date(processo.dataInicio).toLocaleDateString()}</AttributeValue>
-              </div>
-              <div>
-                <AttributeTitle>Data de Atualização</AttributeTitle>
-                <AttributeValue>{new Date(processo.dataAtualizacao).toLocaleDateString()}</AttributeValue>
-              </div>
-              <div>
-                <AttributeTitle>Tipo de Processo</AttributeTitle>
-                <AttributeValue>{processo.tipoProcesso}</AttributeValue>
-              </div>
-              <div>
-                <AttributeTitle>Tipo de Atendimento</AttributeTitle>
-                <AttributeValue>{processo.tipoAtendimento}</AttributeValue>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </CardsContainer>
+        <CardsContainer>
+          {filteredProcessos.length === 0 && !loading && !error && (
+            <EmptyMessage>Nenhum processo encontrado.</EmptyMessage>
+          )} 
+          {filteredProcessos.map((processo) => ( 
+              <Card>
+                <CardHeader>
+                  <StatusChip style={getStatusStyle(processo?.status)}>
+                    {processo?.status}
+                  </StatusChip>
+                </CardHeader>
+                <SectionValues>
+                  <AttributeTitle>Número do Processo</AttributeTitle>
+                  <AttributeValue>{processo?.numeroProcesso}</AttributeValue>
+                </SectionValues>
+                <SectionValues>
+                  <AttributeTitle>Cliente</AttributeTitle>
+                  <AttributeValue>{processo?.cliente?.nome}</AttributeValue>
+                </SectionValues>
+                <SectionValues>
+                  <AttributeTitle>Data de Início</AttributeTitle>
+                  <AttributeValue>{new Date(processo?.dataInicio).toLocaleDateString()}</AttributeValue>
+                </SectionValues>
+                <SectionValues>
+                  <AttributeTitle>Data de Atualização</AttributeTitle>
+                  <AttributeValue>{new Date(processo.dataAtualizacao).toLocaleDateString()}</AttributeValue>
+                </SectionValues>
+                <SectionValues>
+                  <AttributeTitle>Tipo de Processo</AttributeTitle>
+                  <AttributeValue>{processo.tipoProcesso}</AttributeValue>
+                </SectionValues>
+                <SectionValues>
+                  <AttributeTitle>Tipo de Atendimento</AttributeTitle>
+                  <AttributeValue>{processo.tipoAtendimento}</AttributeValue>
+                </SectionValues>
+                <MoreVert style={{ color: '#AAAAAA' }} />
+            </Card>
+          ))} 
+        </CardsContainer>
       </WrapperProcess>
     </Container>
     </>

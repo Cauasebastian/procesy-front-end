@@ -4,7 +4,7 @@ export const Container = styled.div`
   padding: 0 4rem;
   width: 100%;
   margin-top: 3rem;
-  overflow-x: hidden;
+  overflow-y: hidden;
 `;
 
 export const ContainerGoBack = styled.div`
@@ -42,10 +42,18 @@ export const HeaderContainerProcess = styled.div`
   display: flex;
   align-items: center;
   gap: 1rem;
+  justify-content: space-between;
+  padding: 0 2rem;
 `
 
-export const Input = styled.input`
-  flex: 1;
+export const WrapperSearch = styled.div`
+  display: flex;
+  gap: 1rem;
+`
+
+export const InputSearch = styled.input`
+  max-width: 40rem;
+  width: 40rem;
   padding: 8px;
   border-radius: 4px;
   border: 1px solid #ccc;
@@ -67,9 +75,8 @@ export const SearchButton = styled.button`
 export const ActionButtons = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 16px;
-  flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 3rem;
 `;
 
 export const ActionButton = styled.button`
@@ -78,7 +85,7 @@ export const ActionButton = styled.button`
   gap: 4px;
   background-color: #454B60;
   color: white;
-  padding: 8px 12px;
+  padding: 8px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -88,32 +95,26 @@ export const ActionButton = styled.button`
   }
 `;
 
-export const IconButton = styled.button`
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 4px;
-  font-size: 20px;
-  color: #555;
-
-  &:hover {
-    color: #000;
-  }
-`;
 
 export const CardsContainer = styled.div`
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 16px;
+    width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 2rem;
+  margin-top: 2rem;
+  gap: 2rem;
+  margin-bottom: 4rem;
 `;
 
 export const Card = styled.div`
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+   width: 100%;
+  display: flex;
+  border-radius: 6px;
+  border: 1px solid #ECECEC;
+  padding: 2rem;
+  justify-content: space-between;
+  align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease;
 
   &:hover {
     transform: translateY(-2px);
@@ -122,10 +123,18 @@ export const Card = styled.div`
 
 export const CardHeader = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  margin-bottom: 12px;
+  padding: 0.5rem;
+  border-radius: 6px;
+  gap: 0.3rem;
 `;
+
+export const SectionValues = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+`
 
 export const StatusChip = styled.span`
   padding: 4px 8px;
