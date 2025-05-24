@@ -14,7 +14,6 @@ const GlobalStyle = createGlobalStyle`
   #root {
     margin: 0;
     padding: 0;
-    height: 100%;
     min-height: 100vh;
     width: 100%;
     min-width: 100vw;
@@ -24,7 +23,7 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     align-items: center;
     background-color: #F2F2F2;
-    
+    overflow-x: hidden;
   }
 
   button {

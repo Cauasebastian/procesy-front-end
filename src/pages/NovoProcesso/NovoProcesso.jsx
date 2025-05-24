@@ -42,7 +42,7 @@ function NovoProcesso() {
       const token = localStorage.getItem("token");
       if (!token) {
         alert("Autenticação necessária!");
-        navigate("/login");
+        navigate("/");
         return;
       }
 

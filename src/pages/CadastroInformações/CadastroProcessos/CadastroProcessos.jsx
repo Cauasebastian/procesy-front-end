@@ -286,7 +286,7 @@ export function CadastroProcessos() {
 
     if (!token) {
       alert('Autenticação necessária!');
-      navigate('/login'); // Redireciona para a página de login
+      navigate('/'); // Redireciona para a página de login
       return;
     }
 

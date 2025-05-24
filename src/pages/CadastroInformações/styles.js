@@ -4,7 +4,7 @@ export const Container = styled.div`
   padding: 0 4rem;
   width: 100%;
   margin-top: 3rem;
-  overflow-y: hidden;
+  overflow-x: hidden;
 `;
 
 export const ContainerGoBack = styled.div`

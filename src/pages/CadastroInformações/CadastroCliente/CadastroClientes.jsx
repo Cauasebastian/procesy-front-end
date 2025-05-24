@@ -56,7 +56,7 @@ function CadastroClientes() {
 
     if (!token) {
       alert('Autenticação necessária!');
-      navigate('/login'); // Opcional: redirecionar para a página de login
+      navigate('/'); // Opcional: redirecionar para a página de login
       return;
     }
 
