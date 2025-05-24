@@ -16,7 +16,7 @@ import axios from '../../../utils/axiosConfig'; // Utilize a instância configur
 
 
 
-function CadastroDocumentos() {
+export function CadastroDocumentos() {
     const [clienteDocs, setClienteDocs] = useState({
       cpf: null,
       rh: null,
@@ -178,4 +178,3 @@ function handleProcessoClick() {
   );
 }
 
-export default CadastroDocumentos;

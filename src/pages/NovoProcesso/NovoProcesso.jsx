@@ -1,24 +1,11 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
-  Checkbox,
-  FormControlLabel,
-  IconButton,
-  Typography,
-  CircularProgress,
-} from "@mui/material";
-import { ArrowBack } from "@mui/icons-material"; // Ícone de seta
-import { Header } from "../../components/Header/index";
+import * as S from "./styles";
+import { Header } from "../../components/Header";
 import { useNavigate } from "react-router-dom";
-import axios from '../../utils/axiosConfig'; // Utilize a instância configurada do axios
+import axios from "../../utils/axiosConfig";
+import ButtonBack from '../../assets/btn-back.svg'
+import { IoChevronDownOutline } from 'react-icons/io5';
+
 
 function NovoProcesso() {
   const [openDialog, setOpenDialog] = useState(false);
@@ -45,8 +32,7 @@ function NovoProcesso() {
   };
 
   const handleBackClick = () => {
-    console.log("Voltar para o formulário inicial");
-    navigate("/menu"); // Redireciona para a página de menu
+    navigate(-1);
   };
 
   const fetchClientes = async () => {
@@ -67,7 +53,6 @@ function NovoProcesso() {
         },
       });
 
-      // Filtrar somente objetos (ignorar números)
       const data = response.data;
       const clientesFiltrados = data.filter((item) => typeof item === "object" && item !== null);
       setClientes(clientesFiltrados);
@@ -84,195 +69,83 @@ function NovoProcesso() {
     <>
       <Header />
 
-      <Box
-        sx={{
-          width: "100vw",
-          height: "100vh",
-          backgroundColor: "#f5f5f5",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          paddingTop: "80px", // Margin superior para acomodar o header
-          position: "relative",
-        }}
-      >
-        {/* Botão Voltar */}
-        <Box
-          sx={{
-            position: "absolute",
-            top: "20px", // Distância do topo
-            left: "20px", // Distância da lateral esquerda
-            display: "flex",
-            alignItems: "center",
-            cursor: "pointer",
-          }}
-          onClick={handleBackClick}
-        >
-          <IconButton>
-            <ArrowBack sx={{ color: "black", fontSize: "24px" }} />
-          </IconButton>
-          <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: "medium",
-              color: "black",
-              marginLeft: "8px",
-            }}
-          >
-            Formulário inicial
-          </Typography>
-        </Box>
+      <S.Container>
+        <S.VoltarContainer onClick={handleBackClick}>
+          <S.ImageArrow src={ButtonBack}/>
+          <S.VoltarTexto>Novo Processo</S.VoltarTexto>
+        </S.VoltarContainer>
 
-        {/* Box centralizado */}
-        <Box
-          sx={{
-            width: "40%", // Ocupa 40% da largura da tela
-            minWidth: "300px", // Garantir responsividade para telas menores
-            backgroundColor: "#fff",
-            borderRadius: "12px",
-            boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-            padding: "24px",
-            display: "flex",
-            flexDirection: "column",
-            justifyContent: "space-between", // Empurra o botão para o final
-            height: "90%", // Box mais alto para ocupar mais espaço vertical
-          }}
-        >
-          {/* Conteúdo superior */}
+        <S.FormWrapper>
           <div>
-            {/* Título */}
-            <Typography
-              variant="h5"
-              sx={{
-                fontSize: "18px",
-                fontWeight: "bold",
-                marginBottom: "16px",
-              }}
-            >
-              Novo Processo
-            </Typography>
+            <S.Titulo>Selecione o cliente</S.Titulo>
+            <S.Subtitulo>Selecione o Cliente</S.Subtitulo>
 
-            {/* Subtítulo */}
-            <Typography
-              variant="subtitle1"
-              sx={{
-                marginBottom: "16px",
-                fontWeight: "bold",
-                fontSize: "16px",
-              }}
-            >
-              Selecione o Cliente
-            </Typography>
-
-            {/* Botão de Selecionar Cliente */}
-            <Button
-              variant="outlined"
-              onClick={handleOpenDialog}
-              fullWidth
-              sx={{
-                justifyContent: "space-between",
-                textTransform: "none",
-                padding: "10px",
-                marginBottom: "16px",
-                backgroundColor: "#454B60",
-                color: "#fff",
-              }}
-              disabled={isNovoCliente}
-            >
+            <S.BotaoSelecionar onClick={handleOpenDialog} disabled={isNovoCliente}>
               {selectedCliente ? (
-                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
-                  <Typography variant="body1">{selectedCliente.nome}</Typography>
-                </Box>
+                <div>
+                  <strong>{selectedCliente.nome}</strong>
+                </div>
               ) : (
                 "Escolher Cliente"
               )}
-            </Button>
+              <IoChevronDownOutline size={24} />
+            </S.BotaoSelecionar>
 
-            {/* Dialog de Seleção de Clientes */}
-            <Dialog open={openDialog} onClose={handleCloseDialog} fullWidth>
-              <DialogTitle style={{ fontWeight: "bold" }}>Escolha um Cliente</DialogTitle>
-              <DialogContent>
-                {loading ? (
-                  <Box sx={{ display: "flex", justifyContent: "center", padding: "20px" }}>
-                    <CircularProgress />
-                  </Box>
-                ) : error ? (
-                  <Typography color="error">{error}</Typography>
-                ) : clientes.length === 0 ? (
-                  <Typography>Nenhum cliente encontrado.</Typography>
-                ) : (
-                  <List>
-                    {clientes.map((cliente) => (
-                      <ListItem key={cliente.id} disablePadding>
-                        <ListItemButton onClick={() => handleSelectCliente(cliente)}>
-                          <ListItemText
-                            primary={cliente.nome}
-                            secondary={
-                              <>
-                                <Typography component="span" variant="body2" color="text.primary">
-                                  Email: {cliente.email}
-                                </Typography>
-                                <br />
-                                <Typography component="span" variant="body2" color="text.primary">
-                                  Telefone: {cliente.telefone}
-                                </Typography>
-                                <br />
-                                <Typography component="span" variant="body2" color="text.primary">
-                                  Processos: {cliente.processos ? cliente.processos.length : 0}
-                                </Typography>
-                              </>
-                            }
-                          />
-                        </ListItemButton>
-                      </ListItem>
-                    ))}
-                  </List>
-                )}
-              </DialogContent>
-            </Dialog>
+            {openDialog && (
+              <S.DialogOverlay>
+                <S.DialogBox>
+                  <strong>Escolha um Cliente</strong>
+                  <button onClick={handleCloseDialog}>Fechar</button>
 
-            {/* Checkbox Novo Cliente */}
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={isNovoCliente}
-                  onChange={(e) => {
-                    setIsNovoCliente(e.target.checked);
-                    if (e.target.checked) {
-                      setSelectedCliente(null); // Limpa seleção se optar por novo cliente
-                    }
-                  }}
-                />
-              }
-              label="Novo cliente"
-            />
+                  {loading ? (
+                    <S.LoadingContainer>Carregando...</S.LoadingContainer>
+                  ) : error ? (
+                    <S.ErroTexto>{error}</S.ErroTexto>
+                  ) : clientes.length === 0 ? (
+                    <p>Nenhum cliente encontrado.</p>
+                  ) : (
+                    <S.ListaClientes>
+                      {clientes.map((cliente) => (
+                        <S.ItemCliente key={cliente.id} onClick={() => handleSelectCliente(cliente)}>
+                          <p><strong>{cliente.nome}</strong></p>
+                          <p>Email: {cliente.email}</p>
+                          <p>Telefone: {cliente.telefone}</p>
+                          <p>Processos: {cliente.processos ? cliente.processos.length : 0}</p>
+                        </S.ItemCliente>
+                      ))}
+                    </S.ListaClientes>
+                  )}
+                </S.DialogBox>
+              </S.DialogOverlay>
+            )}
+
+            <S.CheckboxContainer>
+              <input
+                type="checkbox"
+                checked={isNovoCliente}
+                onChange={(e) => {
+                  setIsNovoCliente(e.target.checked);
+                  if (e.target.checked) setSelectedCliente(null);
+                }}
+              />
+              <label>Novo cliente</label>
+            </S.CheckboxContainer>
           </div>
 
-          {/* Botão Próximo */}
-          <Button
-            fullWidth
-            variant="contained"
-            sx={{
-              backgroundColor: "#454B60",
-              ":hover": { backgroundColor: "#454B60" },
-              fontWeight: "bold",
-              borderRadius: 8,
-              padding: "10px",
-              marginTop: "16px", // Distância do botão ao conteúdo acima
-            }}
+          <S.BotaoProximo
             onClick={() => {
               if (isNovoCliente) {
-                navigate("/cadastro-clientes");
+                navigate("/cadastro-informacoes");
               } else if (selectedCliente) {
-                navigate("/cadastro-clientes", { state: { cliente: selectedCliente } });
+                navigate("/cadastro-informacoes", { state: { cliente: selectedCliente } });
               }
             }}
             disabled={!selectedCliente && !isNovoCliente}
           >
             Próximo
-          </Button>
-        </Box>
-      </Box>
+          </S.BotaoProximo>
+        </S.FormWrapper>
+      </S.Container>
     </>
   );
 }

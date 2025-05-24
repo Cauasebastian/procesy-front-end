@@ -18,7 +18,7 @@ import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
-function CadastroProcessos() {
+export function CadastroProcessos() {
   // Estado para os dados do processo
   const [processoInfo, setProcessoInfo] = useState({
     numeroProcesso: '',
@@ -857,4 +857,4 @@ function CadastroProcessos() {
   );
 }
 
-export default CadastroProcessos;
+
