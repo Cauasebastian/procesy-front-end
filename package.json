@@ -17,12 +17,15 @@
     "@mui/x-charts": "^7.22.2",
     "axios": "^1.8.4",
     "js-cookie": "^3.0.5",
+    "markdown": "^0.5.0",
     "procesy-front-end": "file:",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
+    "react-markdown": "^10.1.0",
     "react-router-dom": "^6.28.0",
     "react-toastify": "^11.0.5",
+    "remark-gfm": "^4.0.1",
     "styled-components": "^6.1.17"
   },
   "devDependencies": {
