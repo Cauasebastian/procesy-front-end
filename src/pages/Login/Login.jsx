@@ -29,51 +29,52 @@ function Login() {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    
-    // Verificar se a chave privada foi carregada
-    if (!privateKey) {
-      toast.error("Por favor, carregue sua chave privada!");
-      return;
-    }
 
     // Verificar se os campos estão preenchidos
     if (!email || !senha) {
-      toast.error("Preencha todos os campos!");
-      return;
+        toast.error("Preencha todos os campos!");
+        return;
     }
 
     try {
-      const response = await api.post('/auth/login', {
-        email,
-        senha
-      });
+        const response = await api.post('/auth/login', {
+            email,
+            senha
+        });
 
-      const data = response.data;
-      console.log(data);
+        const data = response.data;
+        console.log(data);
 
-      if (data?.token) {
-        localStorage.setItem("token", data.token);
-        localStorage.setItem("privateKey", privateKey); // Armazena a chave privada
-        
-        toast.success("Login realizado com sucesso!");
-        setTimeout(() => {
-          navigate("/menu");
-        }, 3000); 
-      }
-      else {
-        throw new Error("Token não encontrado na resposta");
-      }
+        if (data?.token) {
+            localStorage.setItem("token", data.token);
+            
+            // Armazena a chave privada apenas se existir
+            if (privateKey) {
+                localStorage.setItem("privateKey", privateKey);
+            } else {
+                // Aviso sobre funcionalidades limitadas
+                toast.warning("Você não carregou uma chave privada. Algumas funcionalidades podem estar limitadas.");
+            }
+            
+            toast.success("Login realizado com sucesso!");
+            setTimeout(() => {
+                navigate("/menu");
+            }, 3000); 
+        }
+        else {
+            throw new Error("Token não encontrado na resposta");
+        }
 
     } catch (error) {
-      console.error("Erro no login:", error);
-      
-      // Mensagem de erro mais específica
-      const errorMessage = error.response?.data?.message || 
-                           "Erro ao realizar login. Verifique suas credenciais.";
-      
-      toast.error(errorMessage);
+        console.error("Erro no login:", error);
+        
+        // Mensagem de erro mais específica
+        const errorMessage = error.response?.data?.message || 
+                            "Erro ao realizar login. Verifique suas credenciais.";
+        
+        toast.error(errorMessage);
     }
-  };
+};
 
   return (
     <S.ContainerGeral>
