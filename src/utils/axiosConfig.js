@@ -21,7 +21,7 @@ if (!API_BASE_URL) {
 
 const axiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 10000, // Timeout de 10 segundos
+  timeout: 30000, // Timeout de 10 segundos
   headers: {
     'Content-Type': 'application/json',
   }

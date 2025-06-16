@@ -59,6 +59,12 @@ export const InputForm = styled.input`
   border-radius: 5px;
   font-size: 17px;
 `
+export const KeyUploadSuccess = styled.span`
+  color: #4caf50;
+  font-size: 0.8rem;
+  margin-top: 5px;
+  display: block;
+`;
 
 export const TextForgotPassword = styled.p`
   color: #007AFF;

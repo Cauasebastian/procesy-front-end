@@ -11,13 +11,14 @@ import {
     Divider, 
     List, 
     ListItem, 
+    ListItemText,
     IconButton, 
     CircularProgress, 
     Alert 
 } from "@mui/material";
 
 import * as S from './styles';
-import DocumentosStatus from "../../components/DocumentStatus"; // Importando o novo componente
+import DocumentosStatus from "../../components/DocumentStatus";
 import FileUploadSection from "../../components/FileUploadSection";
 import { toast, ToastContainer } from "react-toastify";
 import { Header } from '../../components/Header';
@@ -26,10 +27,10 @@ import { CardProcesso } from "../../components/CardProcesso";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DownloadIcon from "@mui/icons-material/Download";
-import axios from '../../utils/axiosConfig'; // Utilize a instância configurada do axios
+import axios from '../../utils/axiosConfig';
 
 export default function Processo () {
-    const { processoId } = useParams(); // Obter o processoId da URL
+    const { processoId } = useParams();
     const navigate = useNavigate();
     const [processo, setProcesso] = useState(null);
     const [processoData, setProcessoData] = useState(null);
@@ -54,7 +55,6 @@ export default function Processo () {
             try {
                 const response = await axios.get(`/advogado/processos/${processoId}`);
                 setProcessoData(response.data);
-                console.log('Processo Data:', response.data); // Log para depuração
             } catch (err) {
                 console.error('Erro ao obter detalhes do processo:', err);
                 setError(err.response?.data?.mensagem || err.message || 'Erro ao obter detalhes do processo.');
@@ -70,7 +70,7 @@ export default function Processo () {
             }
         };
 
-        if (processoId) { // Verifique se processoId está definido
+        if (processoId) {
             fetchProcessoDetails();
         } else {
             setError('ID do processo não fornecido.');
@@ -89,20 +89,20 @@ export default function Processo () {
             documentosComplementaresFiles.forEach(file => formData.append('documentosComplementares', file));
             contratosFiles.forEach(file => formData.append('contratos', file));
 
-            const token = localStorage.getItem('token'); // Obtém o token de autenticação
+            const token = localStorage.getItem('token');
             const response = await axios.post(`/api/documento-processo/upload/${processoId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
-                    'Authorization': `Bearer ${token}`, // Adicione se necessário
+                    'Authorization': `Bearer ${token}`,
                 },
             });
 
             setUploadSuccess('Arquivos enviados com sucesso.');
             toast.success('Arquivos enviados com sucesso.')
-            // Atualizar os detalhes do processo após upload
+            
             const updatedProcesso = await axios.get(`/api/documento-processo/processo/${processoId}`);
             setProcesso(updatedProcesso.data);
-            // Limpar os arquivos selecionados
+            
             setProcuracoesFiles([]);
             setPeticoesIniciaisFiles([]);
             setDocumentosComplementaresFiles([]);
@@ -192,25 +192,17 @@ export default function Processo () {
                 break;
         }
     };
-    // Verificando se existe arquivos em qualquer seção
-  const isAnyFileSelected = (
-    procuracoesFiles.length > 0 || 
-    peticoesIniciaisFiles.length > 0 || 
-    documentosComplementaresFiles.length > 0 || 
-    contratosFiles.length > 0
-  );
-
+    
+    const isAnyFileSelected = (
+        procuracoesFiles.length > 0 || 
+        peticoesIniciaisFiles.length > 0 || 
+        documentosComplementaresFiles.length > 0 || 
+        contratosFiles.length > 0
+    );
 
     if (loading) {
         return (
-            <Box 
-                sx={{
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    height: '100vh'
-                }}
-            >
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                 <CircularProgress />
             </Box>
         );
@@ -218,14 +210,7 @@ export default function Processo () {
 
     if (error) {
         return (
-            <Box 
-                sx={{
-                    display: 'flex', 
-                    justifyContent: 'center', 
-                    alignItems: 'center', 
-                    height: '100vh'
-                }}
-            >
+            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100vh' }}>
                 <Alert severity="error">{error}</Alert>
             </Box>
         );
@@ -233,142 +218,113 @@ export default function Processo () {
 
     return (
         <>
-      <Header />
-    {/* Cabeçalho com o título e o botão de voltar */}
-          <PageBack
-        title="Detalhes do Processo"
-        onBack={() => navigate(-1)} // Volta para a página anterior
-        />
+            <Header />
+            <PageBack
+                title="Detalhes do Processo"
+                onBack={() => navigate(-1)}
+            />
 
-      <S.ContainerProcessos>
-        <ToastContainer
-          position="top-center"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick={false}
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="light"
-        />
-      <S.HeaderContainer>
-        <S.TextHeader>{processoData?.cliente.nome || "Nome do Cliente"}</S.TextHeader>
-        <S.ButtonInfoClient>Informações do Cliente</S.ButtonInfoClient>
-      </S.HeaderContainer>
-        <S.ContainerCards>
+            <S.ContainerProcessos>
+                <ToastContainer
+                    position="top-center"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick={false}
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
+                
+                <S.HeaderContainer>
+                    <S.TextHeader>{processoData?.cliente.nome || "Nome do Cliente"}</S.TextHeader>
+                    <S.ButtonInfoClient>Informações do Cliente</S.ButtonInfoClient>
+                </S.HeaderContainer>
+                
+                <S.ContainerCards>
+                    <Typography variant="h5" sx={{ marginY: 2, fontWeight: "bold", color: "#000000", textAlign: "left" }}>
+                        Número: {processoData?.numeroProcesso || "Não especificado"}
+                    </Typography>
+                    
+                    <CardProcesso processo={processoData} />
+                    
+                    {/* DocumentosStatus com handleDownload implementado */}
+                    <DocumentosStatus 
+                        processo={processo} 
+                        handleDownload={handleDownload} 
+                    />
 
+                    {/* Seção de Upload de Documentos */}
+                    <Card sx={{ width: "100%", backgroundColor: "#ffffff", borderRadius: 4, boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)", padding: 3, marginBottom: 4 }}>
+                        <CardContent>
+                            <Typography variant="h6" sx={{ fontWeight: "bold", color: "#000000", marginBottom: 2 }}>
+                                Upload de Documentos
+                            </Typography>
 
-          {/* Detalhes do processo */}
-          <Typography
-            variant="h5"
-            sx={{
-              marginY: 2,
-              fontWeight: "bold",
-              color: "#000000", // Texto preto
-              textAlign: "left",
-            }}
-          >
-            Número: {processoData?.numeroProcesso || "Não especificado"}
-          </Typography>
-                <CardProcesso processo={processoData} />
-                {/* Passando o processo e a função handleDownload para o componente */}
-        <DocumentosStatus processo={processo} handleDownload={() => {}} />
-
-                {/* Seção de Upload de Documentos */}
-                <Card
-                    sx={{
-                        width: "100%",
-                        backgroundColor: "#ffffff", // Fundo branco
-                        borderRadius: 4,
-                        boxShadow: "0px 4px 12px rgba(0, 0, 0, 0.1)",
-                        padding: 3,
-                        marginBottom: 4,
-                    }}
-                >
-                    <CardContent>
-                        <Typography
-                            variant="h6"
-                            sx={{
-                                fontWeight: "bold",
-                                color: "#000000", // Texto preto
-                                marginBottom: 2,
-                            }}
-                        >
-                            Upload de Documentos
-                        </Typography>
-
-                        {/* Usando o componente de upload */}
-        <FileUploadSection
-          title="Procurações"
-          files={procuracoesFiles}
-          handleFileSelect={handleFileSelect}
-          handleRemoveFile={handleRemoveFile}
-          fileType="procuracoes"
-        />
-        <FileUploadSection
-          title="Petições Iniciais"
-          files={peticoesIniciaisFiles}
-          handleFileSelect={handleFileSelect}
-          handleRemoveFile={handleRemoveFile}
-          fileType="peticoesIniciais"
-        />
-        <FileUploadSection
-          title="Documentos Complementares"
-          files={documentosComplementaresFiles}
-          handleFileSelect={handleFileSelect}
-          handleRemoveFile={handleRemoveFile}
-          fileType="documentosComplementares"
-        />
-        <FileUploadSection
-          title="Contratos"
-          files={contratosFiles}
-          handleFileSelect={handleFileSelect}
-          handleRemoveFile={handleRemoveFile}
-          fileType="contratos"
-        />
-        {/* Botão de Enviar Todos os Arquivos */}
-        {isAnyFileSelected && (
-          <Box sx={{ textAlign: 'center', marginTop: 2 }}>
-            {uploadError && (
-              <Alert severity="error" sx={{ mb: 2 }}>
-                {uploadError}
-              </Alert>
-            )}
-            {uploadSuccess && (
-              <Alert severity="success" sx={{ mb: 2 }}>
-                {uploadSuccess}
-              </Alert>
-            )}
-            <Button
-            variant="contained"
-              color="primary"
-              onClick={handleFileUpload}
-              disabled={uploading}
-        startIcon={<CloudUploadIcon />}
-        sx={{
-          backgroundColor: "#4a90e2", // Azul estilizado
-          color: "#ffffff", // Texto branco
-          textTransform: "none",
-          fontWeight: "bold",
-          paddingY: 1,
-          paddingX: 3,
-          borderRadius: 3,
-          "&:hover": {
-            backgroundColor: "#357ABD", // Azul mais escuro no hover
-          },
-        }}
-            >
-              {uploading ? "Enviando..." : "Enviar Todos os Arquivos"}
-            </Button>
-          </Box>
-        )}
-        
-                    </CardContent>
-                </Card>
-            </S.ContainerCards>
-        </S.ContainerProcessos>
+                            <FileUploadSection
+                                title="Procurações"
+                                files={procuracoesFiles}
+                                handleFileSelect={handleFileSelect}
+                                handleRemoveFile={handleRemoveFile}
+                                fileType="procuracoes"
+                            />
+                            
+                            <FileUploadSection
+                                title="Petições Iniciais"
+                                files={peticoesIniciaisFiles}
+                                handleFileSelect={handleFileSelect}
+                                handleRemoveFile={handleRemoveFile}
+                                fileType="peticoesIniciais"
+                            />
+                            
+                            <FileUploadSection
+                                title="Documentos Complementares"
+                                files={documentosComplementaresFiles}
+                                handleFileSelect={handleFileSelect}
+                                handleRemoveFile={handleRemoveFile}
+                                fileType="documentosComplementares"
+                            />
+                            
+                            <FileUploadSection
+                                title="Contratos"
+                                files={contratosFiles}
+                                handleFileSelect={handleFileSelect}
+                                handleRemoveFile={handleRemoveFile}
+                                fileType="contratos"
+                            />
+                            
+                            {isAnyFileSelected && (
+                                <Box sx={{ textAlign: 'center', marginTop: 2 }}>
+                                    {uploadError && <Alert severity="error" sx={{ mb: 2 }}>{uploadError}</Alert>}
+                                    {uploadSuccess && <Alert severity="success" sx={{ mb: 2 }}>{uploadSuccess}</Alert>}
+                                    
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleFileUpload}
+                                        disabled={uploading}
+                                        startIcon={<CloudUploadIcon />}
+                                        sx={{
+                                            backgroundColor: "#4a90e2",
+                                            color: "#ffffff",
+                                            textTransform: "none",
+                                            fontWeight: "bold",
+                                            paddingY: 1,
+                                            paddingX: 3,
+                                            borderRadius: 3,
+                                            "&:hover": { backgroundColor: "#357ABD" },
+                                        }}
+                                    >
+                                        {uploading ? "Enviando..." : "Enviar Todos os Arquivos"}
+                                    </Button>
+                                </Box>
+                            )}
+                        </CardContent>
+                    </Card>
+                </S.ContainerCards>
+            </S.ContainerProcessos>
         </>
     );
 }

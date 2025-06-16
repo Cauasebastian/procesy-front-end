@@ -17,7 +17,14 @@ function Cadastro() {
 
 
   const handleCadastro = async (e) => {
-    e.preventDefault()
+  e.preventDefault();
+  
+  // Validação básica dos campos
+  if (!nome || !email || !senha) {
+    toast.error("Preencha todos os campos obrigatórios");
+    return;
+  }
+
   try {
     const response = await api.post(`/auth/register`, {
       nome,
@@ -25,20 +32,39 @@ function Cadastro() {
       senha,
     });
 
-    console.log(response.data);
-    toast.success("Cadastro realizado com sucesso! Faça login com sua senha.");
-    setTimeout(() => {
+    if (response.status === 200) {
+      // Tratar resposta de sucesso
+      if (response.data.privateKey) {
+        // Download da chave privada
+        const blob = new Blob([response.data.privateKey], { type: 'text/plain' });
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'chave_privada.txt';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      }
+      toast.success("Cadastro realizado com sucesso!");
+      setTimeout(() => {
+      }, 3000);
+      toast.success("Você recebeu uma chave privada, e guarde-a com segurança.");
+      setTimeout(() => {
         navigate("/");
-      }, 3000); 
-  } catch (error) {
-    if (axios.isAxiosError(error)) {
-      const message =
-        error.response?.data?.message || "Erro desconhecido no servidor.";
-      toast.error(`Erro no cadastro: ${message}`);
-    } else {
-      toast.error("Erro inesperado. Tente novamente.");
+      }, 3000);
     }
-    toast.error("Erro no cadastro:", error);
+  } catch (error) {
+    console.error("Erro no cadastro:", error);
+    
+    // Mensagem mais detalhada do erro
+    let errorMessage = "Erro ao cadastrar";
+    if (error.response) {
+      if (error.response.data.message) {
+        errorMessage = error.response.data.message;
+      } else if (error.response.data) {
+        errorMessage = error.response.data;
+      }
+    }
+    toast.error(errorMessage);
   }
 };
   return (
