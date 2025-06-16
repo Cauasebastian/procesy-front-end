@@ -135,9 +135,9 @@ function NovoProcesso() {
           <S.BotaoProximo
             onClick={() => {
               if (isNovoCliente) {
-                navigate("/cadastro-informacoes");
+                navigate("/cadastro-clientes");
               } else if (selectedCliente) {
-                navigate("/cadastro-informacoes", { state: { cliente: selectedCliente } });
+                navigate("/cadastro-processos", { state: { cliente: selectedCliente } });
               }
             }}
             disabled={!selectedCliente && !isNovoCliente}

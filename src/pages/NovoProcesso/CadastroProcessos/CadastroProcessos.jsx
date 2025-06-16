@@ -18,7 +18,7 @@ import { Header } from '../../../components/Header';
 import { useNavigate } from 'react-router-dom';
 import axios from '../../../utils/axiosConfig'; // Utilize a instância configurada do axios
 
-export function CadastroProcessos() {
+function CadastroProcessos() {
   // Estado para os dados do processo
   const [processoInfo, setProcessoInfo] = useState({
     numeroProcesso: '',
@@ -286,7 +286,7 @@ export function CadastroProcessos() {
 
     if (!token) {
       alert('Autenticação necessária!');
-      navigate('/'); // Redireciona para a página de login
+      navigate('/login'); // Redireciona para a página de login
       return;
     }
 
@@ -857,4 +857,4 @@ export function CadastroProcessos() {
   );
 }
 
-
+export default CadastroProcessos;
