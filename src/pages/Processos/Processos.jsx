@@ -110,7 +110,7 @@ export default function Processos() {
             <ActionButton onClick={() => navigate('/novo-processo')}>
               Novo Processo <Add />
             </ActionButton>
-            <ActionButton onClick={() => navigate('/novo-cliente')}>
+            <ActionButton onClick={() => navigate('/novo-processo')}>
               Novo Cliente <PersonAdd />
             </ActionButton>
           </ActionButtons>
@@ -123,7 +123,13 @@ export default function Processos() {
             <EmptyMessage>Nenhum processo encontrado.</EmptyMessage>
           )} 
           {filteredProcessos.map((processo) => ( 
-              <Card>
+              <Card 
+                key={processo.id} 
+                onClick={() => navigate(`/processo/${processo.id}`)}
+                style={{ cursor: "pointer" }} // Adiciona indicador visual
+                onMouseEnter={(e) => e.currentTarget.style.boxShadow = "0 4px 8px rgba(0,0,0,0.1)"}
+                onMouseLeave={(e) => e.currentTarget.style.boxShadow = "none"}
+              >
                 <CardHeader>
                   <StatusChip style={getStatusStyle(processo?.status)}>
                     {processo?.status}
